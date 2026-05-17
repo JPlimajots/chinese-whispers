@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dmx3kuup35e38"]
+
+[ext_resource type="Script" uid="uid://dxgklcarx4upy" path="res://scripts/pin.gd" id="1_7o8e5"]
+[ext_resource type="Texture2D" uid="uid://djupoyuiklxl5" path="res://icon.svg" id="1_p1640"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1640"]
+radius = 5.0
+height = 42.0
+
+[node name="Pin" type="Area2D" unique_id=364163031]
+script = ExtResource("1_7o8e5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=13187041]
+modulate = Color(0.21431515, 0.15156388, 0.090313725, 1)
+position = Vector2(0.5, 0)
+scale = Vector2(0.0859375, 0.34375)
+texture = ExtResource("1_p1640")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1779362411]
+shape = SubResource("CapsuleShape2D_p1640")

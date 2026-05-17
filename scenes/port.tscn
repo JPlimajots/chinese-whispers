@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b1l302pnrem7j"]
+
+[ext_resource type="Script" uid="uid://dyicwo1jeapdp" path="res://scripts/port.gd" id="1_4bvp8"]
+[ext_resource type="Texture2D" uid="uid://djupoyuiklxl5" path="res://icon.svg" id="1_oyquu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bvp8"]
+radius = 57.48913
+
+[node name="Port" type="Area2D" unique_id=1841993091 groups=["ports"]]
+script = ExtResource("1_4bvp8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1523844992]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("1_oyquu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=909781805]
+shape = SubResource("CircleShape2D_4bvp8")
