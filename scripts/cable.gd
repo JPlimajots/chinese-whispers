@@ -4,18 +4,25 @@ extends Node2D
 @onready var pin_1: Area2D = $Pin1
 @onready var pin_2: Area2D = $Pin2
 
-var max_length: float = 0.0
-
 @export var num_segments: int = 9
+@export var stiffness: int = 30 
+@export var gravity_y: float = 2800.0
+@export var damping: float = 0.94 
+
+@export_enum("red", "green") var cable_color: String = "red":
+	set(value):
+		cable_color = value
+		_update_cable_visuals()
+
+var max_length: float = 0.0
+var gravity: Vector2 = Vector2.ZERO
 var segment_length: float = 0.0
 var pos_current: Array[Vector2] = []
 var pos_old: Array[Vector2] = []
-@export var gravity: Vector2 = Vector2(0, 2800)
-@export var stiffness: int = 30
-@export var damping: float = 0.94
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	gravity = Vector2(0, gravity_y)
 	max_length = pin_1.global_position.distance_to(pin_2.global_position)
 	segment_length = max_length / (num_segments - 1)
 	
@@ -28,6 +35,8 @@ func _ready() -> void:
 	
 	pin_1.pin_canceled.connect(_on_pin_canceled)
 	pin_2.pin_canceled.connect(_on_pin_canceled)
+	
+	_update_cable_visuals()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -110,3 +119,13 @@ func _apply_leash() -> void:
 			else:
 				var dir = pin_2.global_position.direction_to(pin_1.global_position)
 				pin_1.global_position = pin_2.global_position + (dir * max_length)
+
+
+func _update_cable_visuals():
+	if not is_inside_tree() or not wire:
+		return
+	
+	if cable_color == "red":
+		wire.default_color = Color("#b62222")
+	elif cable_color == "green":
+		wire.default_color = Color("#228b45")
