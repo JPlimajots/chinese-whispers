@@ -2,16 +2,29 @@
 
 [ext_resource type="PackedScene" uid="uid://b1l302pnrem7j" path="res://scenes/port.tscn" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://py8s2kebd7da" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://batu6kd4gow2y" path="res://assets/sprites/bgv1.png" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://70p58tsrhgk1" path="res://scenes/cable.tscn" id="2_sugp2"]
 
 [node name="Main" type="Node2D" unique_id=874198836]
 script = ExtResource("1_sugp2")
 
+[node name="Background" type="TextureRect" parent="." unique_id=379146385]
+offset_top = -1.0
+offset_right = 2206.0
+offset_bottom = 1116.0
+texture = ExtResource("2_jyhfs")
+stretch_mode = 6
+metadata/_edit_lock_ = true
+
 [node name="Port" parent="." unique_id=1841993091 instance=ExtResource("1_0wfyh")]
-position = Vector2(628, 289)
+position = Vector2(478, 492)
+grid_pos = "A1"
+current_light = "green"
 
 [node name="Port2" parent="." unique_id=1087475790 instance=ExtResource("1_0wfyh")]
-position = Vector2(973, 289)
+position = Vector2(478, 607)
+grid_pos = "B1"
+current_light = "red"
 
 [node name="Cable" parent="." unique_id=1320508 instance=ExtResource("2_sugp2")]
-position = Vector2(631, 497)
+position = Vector2(357, 898)
