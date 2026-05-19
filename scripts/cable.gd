@@ -129,3 +129,12 @@ func _update_cable_visuals():
 		wire.default_color = Color("#b62222")
 	elif cable_color == "green":
 		wire.default_color = Color("#228b45")
+
+
+func get_other_pin(entry_pin: Area2D):
+	if entry_pin == pin_1:
+		return pin_2
+	elif entry_pin == pin_2:
+		return pin_1
+	
+	return null
