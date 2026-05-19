@@ -38,6 +38,7 @@ func _check_drop_zone():
 			connected_port = area
 			area.connected_pin = self
 			global_position = area.global_position
+			ConnectionManager.evaluate_new_connection(area)
 			return
 
 

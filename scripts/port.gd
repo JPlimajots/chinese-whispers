@@ -12,6 +12,8 @@ var connected_pin: Area2D = null
 
 func _ready():
 	_update_light_visuals()
+	if not grid_pos.begins_with("ADAPT"):
+		add_to_group("panel_ports")
 
 
 func is_occupied():
