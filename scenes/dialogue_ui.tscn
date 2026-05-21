@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bekeim1pt4da6"]
+
+[ext_resource type="Script" uid="uid://bgxn548xp3bbt" path="res://scripts/dialogue_ui.gd" id="1_dwk8m"]
+
+[node name="DialogueUI" type="CanvasLayer" unique_id=1232079868]
+script = ExtResource("1_dwk8m")
+
+[node name="MainControl" type="Control" parent="." unique_id=22826134]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BalloonBackground" type="TextureRect" parent="MainControl" unique_id=1819119217]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 93.0
+offset_right = 1453.0
+offset_bottom = 246.0
+mouse_filter = 2
+
+[node name="DialogueLabel" type="RichTextLabel" parent="MainControl/BalloonBackground" unique_id=182352802]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
+
+[node name="TypewriterTimer" type="Timer" parent="." unique_id=1758948054]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="TypewriterTimer" to="." method="_on_typewriter_timer_timeout"]

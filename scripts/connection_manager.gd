@@ -4,6 +4,8 @@ signal connection_success(caller_name: String, target_name: String)
 signal connection_chaos(caller_name: String, wrong_target_name: String, origin_id: String, target_id: String) 
 signal connection_dropped(caller_name: String, reason: String)
 
+var current_call_id: String = "01_seed"
+
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
 	"A1_green": "Pincer's Family House",
