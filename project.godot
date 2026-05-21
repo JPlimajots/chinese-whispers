@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ConnectionManager="*uid://csmmejpkph1vv"
+NarrativeManager="*uid://c36yibmy52y44"
 
 [display]
 
