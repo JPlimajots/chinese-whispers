@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg0ycp1y1s6qg"
-path="res://.godot/imported/Red Cable.png-14a118ec0b1a40f06517953318f49f5b.ctex"
+uid="uid://d1q3a07yeoffm"
+path="res://.godot/imported/Boss (open mouth).png-93bde0aa7d49a52fc0473e44c84871d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Red Cable.png"
-dest_files=["res://.godot/imported/Red Cable.png-14a118ec0b1a40f06517953318f49f5b.ctex"]
+source_file="res://assets/sprites/characters/Boss (open mouth).png"
+dest_files=["res://.godot/imported/Boss (open mouth).png-93bde0aa7d49a52fc0473e44c84871d7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0684eam6ar3"
-path="res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"
+uid="uid://be0p83usk4qwu"
+path="res://.godot/imported/Mrs Silva.png-a6dbd5d44bca48ee2425c36318368f15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/mayor pincer (mouth open).png"
-dest_files=["res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"]
+source_file="res://assets/sprites/characters/Mrs Silva.png"
+dest_files=["res://.godot/imported/Mrs Silva.png-a6dbd5d44bca48ee2425c36318368f15.ctex"]
 
 [params]
 

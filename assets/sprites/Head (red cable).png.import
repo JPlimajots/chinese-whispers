@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfdhm262ffhdw"
-path="res://.godot/imported/Green Cable Connected.png-c980659d1393091907d4c6582f805cf2.ctex"
+uid="uid://bq76u8st7owpf"
+path="res://.godot/imported/Head (red cable).png-9ef0ee9c3e8d2c8b3fa3f0bafdd118a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Green Cable Connected.png"
-dest_files=["res://.godot/imported/Green Cable Connected.png-c980659d1393091907d4c6582f805cf2.ctex"]
+source_file="res://assets/sprites/Head (red cable).png"
+dest_files=["res://.godot/imported/Head (red cable).png-9ef0ee9c3e8d2c8b3fa3f0bafdd118a3.ctex"]
 
 [params]
 

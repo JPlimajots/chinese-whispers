@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0684eam6ar3"
-path="res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"
+uid="uid://c861aajla0mf0"
+path="res://.godot/imported/Mrs Johnson.png-10428d89c9891900c541aea408962025.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/mayor pincer (mouth open).png"
-dest_files=["res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"]
+source_file="res://assets/sprites/characters/Mrs Johnson.png"
+dest_files=["res://.godot/imported/Mrs Johnson.png-10428d89c9891900c541aea408962025.ctex"]
 
 [params]
 

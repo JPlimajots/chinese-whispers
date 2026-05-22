@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0684eam6ar3"
-path="res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"
+uid="uid://j6w2wj5bwgu1"
+path="res://.godot/imported/Big Corp Administator (mouth open).png-fc41140a19b093daea59fd35ecf1d783.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/mayor pincer (mouth open).png"
-dest_files=["res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"]
+source_file="res://assets/sprites/characters/Big Corp Administator (mouth open).png"
+dest_files=["res://.godot/imported/Big Corp Administator (mouth open).png-fc41140a19b093daea59fd35ecf1d783.ctex"]
 
 [params]
 

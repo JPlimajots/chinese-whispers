@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0684eam6ar3"
-path="res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"
+uid="uid://de04jrnv8jvbm"
+path="res://.godot/imported/Teacher Marianne.png-f6b2a9f30e5e0bd083b94f40b13444e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/mayor pincer (mouth open).png"
-dest_files=["res://.godot/imported/mayor pincer (mouth open).png-602145249e843a378f1c89a0f45e9acd.ctex"]
+source_file="res://assets/sprites/characters/Teacher Marianne.png"
+dest_files=["res://.godot/imported/Teacher Marianne.png-f6b2a9f30e5e0bd083b94f40b13444e5.ctex"]
 
 [params]
 
