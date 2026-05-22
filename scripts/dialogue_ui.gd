@@ -13,6 +13,7 @@ func _ready() -> void:
 	ConnectionManager.connection_success.connect(_on_connection_success)
 	ConnectionManager.connection_chaos.connect(_on_connection_chaos)
 	ConnectionManager.connection_dropped.connect(_on_connection_dropped)
+	ConnectionManager.new_call_started.connect(display_current_hook)
 	
 	display_current_hook(ConnectionManager.current_call_id)
 

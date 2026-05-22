@@ -3,8 +3,9 @@ extends Node
 signal connection_success(caller_name: String, target_name: String)
 signal connection_chaos(caller_name: String, wrong_target_name: String, origin_id: String, target_id: String) 
 signal connection_dropped(caller_name: String, reason: String)
+signal new_call_started(call_id: String)
 
-var current_call_id: String = "01_seed"
+var current_call_id: String = ""
 
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
@@ -35,6 +36,11 @@ var active_gabarito: Dictionary = {
 	"A1_green": "B5_green",
 	"A1_red": "B1_red"
 }
+
+func _ready() -> void:
+	NarrativeManager.reset_call_pool()
+	spawn_next_call()
+
 
 func evaluate_new_connection(trigger_port: Area2D) -> void:
 	var origin_port = _get_opposite_end(trigger_port)
@@ -136,3 +142,27 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	else:
 		print("\n⚪ Linha fantasma: Conexão feita entre ", caller_name, " e ", target_name, ", mas ninguém ligou.")
 		
+
+
+func spawn_next_call():
+	if NarrativeManager.available_calls.is_empty():
+		print(">> O expediente acabou! Nenhuma chamada restante na linha.")
+		current_call_id = ""
+		return
+	
+	var random_call = NarrativeManager.available_calls.pick_random()
+	
+	NarrativeManager.available_calls.erase(random_call)
+	current_call_id = random_call
+	print(">> O telefone toca! Nova chamada recebida: ", current_call_id)
+	new_call_started.emit(current_call_id)
+
+
+func _advance_narrative(next_id):
+	if next_id != null:
+		current_call_id = next_id
+		print(">> Próxima chamada engatilahda: ", current_call_id)
+		new_call_started.emit(current_call_id)
+	else:
+		print(">> Fim deste atendimento. Aguardando a próxima ligação...")
+		spawn_next_call()
