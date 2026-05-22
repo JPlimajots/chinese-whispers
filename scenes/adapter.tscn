@@ -1,20 +1,12 @@
 [gd_scene format=3 uid="uid://djqoxdn2228q1"]
 
 [ext_resource type="Script" uid="uid://ck7jahdcobm83" path="res://scripts/adapter.gd" id="1_1gd26"]
-[ext_resource type="Texture2D" uid="uid://djupoyuiklxl5" path="res://icon.svg" id="2_3cag6"]
 [ext_resource type="PackedScene" uid="uid://b1l302pnrem7j" path="res://scenes/port.tscn" id="3_v0cm8"]
 
 [node name="Adapter" type="Node2D" unique_id=175394667]
 script = ExtResource("1_1gd26")
 
-[node name="In" type="Sprite2D" parent="." unique_id=1539238102]
-texture = ExtResource("2_3cag6")
-
-[node name="Out" type="Sprite2D" parent="." unique_id=571530386]
-position = Vector2(327, 2)
-texture = ExtResource("2_3cag6")
-
 [node name="PortA" parent="." unique_id=1841993091 instance=ExtResource("3_v0cm8")]
 
 [node name="PortB" parent="." unique_id=29334211 instance=ExtResource("3_v0cm8")]
-position = Vector2(329, 4)
+position = Vector2(89, -1)
