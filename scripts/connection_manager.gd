@@ -4,8 +4,12 @@ signal connection_success(caller_name: String, target_name: String)
 signal connection_chaos(caller_name: String, wrong_target_name: String, origin_id: String, target_id: String) 
 signal connection_dropped(caller_name: String, reason: String)
 signal new_call_started(call_id: String)
+signal player_confirmed
+signal typing_finished
+signal clear_ui_text
 
 var current_call_id: String = ""
+var is_typing: bool = false
 
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
@@ -141,6 +145,7 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			print("Caminho físico: ", path)
 			connection_success.emit(caller_name, correct_name)
 			_clear_current_call_visuals(current_call_id)
+			await get_tree().create_timer(2.0).timeout
 			_advance_narrative(call_data.get("next_trigger_success"))
 		else:
 			print("\n📵 LIGAÇÃO CAIU! Destino certo, mas cor do pino errada no final.")
@@ -154,8 +159,9 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
 			print("\n🔴 INSTABILIDADE NA LINHA! INSTALAÇÃO DO CAOS!")
 			print("Caminho físico: ", path)
-			connection_chaos.emit(caller_name, wrong_name, caller_id, wrong_id)
 			_clear_current_call_visuals(current_call_id)
+			await get_tree().create_timer(2.0).timeout
+			connection_chaos.emit(caller_name, wrong_name, caller_id, wrong_id)
 			_advance_narrative(chaos_data.get("next_trigger"))
 			return
 			
@@ -182,9 +188,14 @@ func spawn_next_call():
 	
 	if caller_port:
 		caller_port.set_led_blinking(caller_color, 0.1)
-		await get_tree().create_timer(1.5).timeout
+		await  player_confirmed
 		caller_port.set_led_solid(caller_color)
+		await get_tree().create_timer(1.5).timeout
+		
 		new_call_started.emit(current_call_id)
+		
+		await typing_finished
+		await get_tree().create_timer(1.5).timeout
 		
 		var correct_id: String = call_data["correct_target"]
 		var correct_color: String = correct_id.split("_")[1]
@@ -205,7 +216,15 @@ func _advance_narrative(next_id):
 		print(">> Próxima chamada engatilahda: ", current_call_id)
 		new_call_started.emit(current_call_id)
 	else:
-		print(">> Fim deste atendimento. Aguardando a próxima ligação...")
+		print(">> [DEBUG] Fim do atendimento. Aguardando texto terminar de ser digitado!")
+		if is_typing:
+			await typing_finished
+		print(">> [DEBUG] Texto 100% visível na tela! Aguardando o jogador apertar ENTER para proseguir...")
+		await player_confirmed
+		print(">> [DEBUG] Confirmação recebida! Limpando a interface...")
+		clear_ui_text.emit()
+		await get_tree().create_timer(5.0).timeout
+		print(">> [DEBUG] Cooldown de silêncio finalizado. Sorteando o próximo caso...")
 		spawn_next_call()
 
 
@@ -236,3 +255,8 @@ func _clear_current_call_visuals(call_id: String):
 		var wrong_port = _get_port_by_id(wrong_id)
 		if wrong_port: wrong_port.set_led_idle()
 		
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
+		player_confirmed.emit()
+		print(">> [DEBUG] Tecla ENTER detectada. Sinal player_confirmed disparado!")

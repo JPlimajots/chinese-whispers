@@ -14,6 +14,7 @@ func _ready() -> void:
 	ConnectionManager.connection_chaos.connect(_on_connection_chaos)
 	ConnectionManager.connection_dropped.connect(_on_connection_dropped)
 	ConnectionManager.new_call_started.connect(display_current_hook)
+	ConnectionManager.clear_ui_text.connect(_clear_text)
 	
 	display_current_hook(ConnectionManager.current_call_id)
 
@@ -45,6 +46,7 @@ func _on_connection_dropped(caller_name: String, reason: String):
 
 
 func _start_typewriter(text_tag: String):
+	ConnectionManager.is_typing = true
 	current_text = text_tag
 	dialogue_label.text = ""
 	current_char_index = 0
@@ -57,3 +59,9 @@ func _on_typewriter_timer_timeout():
 		current_char_index += 1
 	else:
 		typewriter_timer.stop()
+		ConnectionManager.is_typing = false
+		ConnectionManager.typing_finished.emit()
+
+
+func _clear_text():
+	dialogue_label.text = ""
