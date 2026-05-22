@@ -1,17 +1,20 @@
 extends Area2D
 
 @onready var led_glow: Sprite2D = $LedGlow
+@onready var led_timer: Timer = $LedTimer
 
 @export var grid_pos: String = ""
-@export_enum("none", "red", "green") var current_light: String = "none":
-	set(value):
-		current_light = value
-		_update_light_visuals()
+
+const COLOR_IDLE = Color("#ffb454")
+const COLOR_RED = Color("#ff3333")
+const COLOR_GREEN = Color("#33ff33")
 
 var connected_pin: Area2D = null
+var active_color: Color = COLOR_IDLE
 
 func _ready():
-	_update_light_visuals()
+	led_timer.timeout.connect(_on_led_timer_timeout)
+	set_led_idle()
 	if not grid_pos.begins_with("ADAPT"):
 		add_to_group("panel_ports")
 
@@ -21,20 +24,35 @@ func is_occupied():
 
 
 func get_full_id():
-	if current_light == "none":
-		return grid_pos
-	return grid_pos + "_" + current_light
+	return grid_pos
 
 
-func _update_light_visuals():
-	if not led_glow:
-		return
-	
-	if current_light == "none":
-		led_glow.visible = false
-	elif current_light == "red":
-		led_glow.visible = true
-		led_glow.modulate = Color(1.0, 0.0, 0.0)
-	elif current_light == "green":
-		led_glow.visible = true
-		led_glow.modulate = Color(0.0, 1.0, 0.0)
+func set_led_idle():
+	led_timer.stop()
+	led_glow.visible = true
+	led_glow.modulate = COLOR_IDLE
+	active_color = COLOR_IDLE
+
+
+func set_led_solid(color_str: String):
+	led_timer.stop()
+	led_glow.visible = true
+	led_glow.modulate = COLOR_RED if color_str == "red" else COLOR_GREEN
+	active_color = led_glow.modulate
+
+
+func set_led_blinking(color_str: String, blink_speed: float):
+	led_timer.stop()
+	led_glow.visible = true
+	active_color = COLOR_RED if color_str == "red" else COLOR_GREEN
+	led_glow.modulate = active_color
+	led_timer.wait_time = blink_speed
+	led_timer.start()
+
+
+func _on_led_timer_timeout():
+	if led_glow.modulate == active_color:
+		led_glow.modulate = Color.TRANSPARENT
+	else:
+		led_glow.modulate = active_color
+		

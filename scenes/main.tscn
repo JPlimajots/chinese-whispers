@@ -23,7 +23,6 @@ metadata/_edit_lock_ = true
 [node name="PortA1" parent="." unique_id=1841993091 instance=ExtResource("1_0wfyh")]
 position = Vector2(478, 492)
 grid_pos = "A1"
-current_light = "green"
 
 [node name="PortA2" parent="." unique_id=1246378384 instance=ExtResource("1_0wfyh")]
 position = Vector2(620, 492)
@@ -60,7 +59,6 @@ grid_pos = "B4"
 [node name="PortB5" parent="." unique_id=1226192632 instance=ExtResource("1_0wfyh")]
 position = Vector2(1050, 607)
 grid_pos = "B5"
-current_light = "green"
 
 [node name="Adapter" parent="." unique_id=175394667 instance=ExtResource("5_tbgi4")]
 position = Vector2(715, 855)

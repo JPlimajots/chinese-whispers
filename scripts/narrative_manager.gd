@@ -3,19 +3,19 @@ extends Node
 
 const NARRATIVES: Dictionary = {
 	"01_seed": {
-		"caller_id": "CALLER_SEED_1",
+		"caller_id": "A1_red",
 		"initial_text": "HOOK_TAG_1",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_1",
+		"correct_target": "B1_red",
 		"success_text": "SUCCESS_REPLY_1A",
 		 "next_trigger_success": null,
 		
 		"wrong_targets": {
-			"WRONG_TARGET_B_1": {
+			"A4_red": {
 				"chaos_text": "CHAOS_REPLY_1B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_1": {
+			"B5_green": {
 				"chaos_text": "CHAOS_REPLY_1C",
 				"next_target": null
 			}
@@ -23,19 +23,19 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"02_seed": {
-		"caller_id": "CALLER_SEED_2",
+		"caller_id": "B2_green",
 		"initial_text": "HOOK_TAG_2",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_2",
+		"correct_target": "B3_green",
 		"success_text": "SUCCESS_REPLY_2A",
 		 "next_trigger_success": null,
 		
 		"wrong_targets": {
-			"WRONG_TARGET_B_2": {
+			"A2_green": {
 				"chaos_text": "CHAOS_REPLY_2B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_2": {
+			"B4_red": {
 				"chaos_text": "CHAOS_REPLY_2C",
 				"next_target": null
 			}
@@ -43,20 +43,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"03_seed": {
-		"caller_id": "CALLER_SEED_3",
+		"caller_id": "A3_green",
 		"initial_text": "HOOK_TAG_3",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_3",
+		"correct_target": "B2_red",
 		"success_text": "SUCCESS_REPLY_3A",
 		 "next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_3": {
+			"A4_red": {
 				"chaos_text": "CHAOS_REPLY_3B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_3": {
+			"B5_green": {
 				"chaos_text": "CHAOS_REPLY_3C",
 				"next_target": null
 			}
@@ -64,20 +64,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"04_seed": {
-		"caller_id": "CALLER_SEED_4",
+		"caller_id": "A1_green",
 		"initial_text": "HOOK_TAG_4",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_4",
+		"correct_target": "B1_green",
 		"success_text": "SUCCESS_REPLY_4A",
 		 "next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_4": {
+			"A2_red": {
 				"chaos_text": "CHAOS_REPLY_4B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_4": {
+			"B4_red": {
 				"chaos_text": "CHAOS_REPLY_4C",
 				"next_target": null
 			}
@@ -85,20 +85,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"05_seed": {
-		"caller_id": "CALLER_SEED_5",
+		"caller_id": "B3_red",
 		"initial_text": "HOOK_TAG_5",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_5",
+		"correct_target": "A5_green",
 		"success_text": "SUCCESS_REPLY_5A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_5": {
+			"B2_green": {
 				"chaos_text": "CHAOS_REPLY_5B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_5": {
+			"A1_red": {
 				"chaos_text": "CHAOS_REPLY_5C",
 				"next_target": null
 			}
@@ -106,20 +106,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"06_seed": {
-		"caller_id": "CALLER_SEED_6",
+		"caller_id": "A2_green",
 		"initial_text": "HOOK_TAG_6",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_6",
+		"correct_target": "B4_green",
 		"success_text": "SUCCESS_REPLY_6A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_6": {
+			"A3_red": {
 				"chaos_text": "CHAOS_REPLY_6B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_6": {
+			"B1_red": {
 				"chaos_text": "CHAOS_REPLY_6C",
 				"next_target": null
 			}
@@ -127,20 +127,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"07_seed": {
-		"caller_id": "CALLER_SEED_7",
+		"caller_id": "B5_red",
 		"initial_text": "HOOK_TAG_7",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_7",
+		"correct_target": "A4_green",
 		"success_text": "SUCCESS_REPLY_7A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_7": {
+			"B3_green": {
 				"chaos_text": "CHAOS_REPLY_7B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_7": {
+			"A2_red": {
 				"chaos_text": "CHAOS_REPLY_7C",
 				"next_target": null
 			}
@@ -148,20 +148,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"08_seed": {
-		"caller_id": "CALLER_SEED_8",
+		"caller_id": "A5_red",
 		"initial_text": "HOOK_TAG_8",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_8",
+		"correct_target": "B2_green",
 		"success_text": "SUCCESS_REPLY_8A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_8": {
+			"A1_green": {
 				"chaos_text": "CHAOS_REPLY_8B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_8": {
+			"B4_red": {
 				"chaos_text": "CHAOS_REPLY_8C",
 				"next_target": null
 			}
@@ -169,20 +169,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"09_seed": {
-		"caller_id": "CALLER_SEED_9",
+		"caller_id": "B1_red",
 		"initial_text": "HOOK_TAG_9",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_9",
+		"correct_target": "A3_green",
 		"success_text": "SUCCESS_REPLY_9A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_9": {
+			"B5_green": {
 				"chaos_text": "CHAOS_REPLY_9B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_9": {
+			"A4_red": {
 				"chaos_text": "CHAOS_REPLY_9C",
 				"next_target": null
 			}
@@ -190,20 +190,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"10_seed": {
-		"caller_id": "CALLER_SEED_10",
+		"caller_id": "A4_green",
 		"initial_text": "HOOK_TAG_10",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_10",
+		"correct_target": "B3_red",
 		"success_text": "SUCCESS_REPLY_10A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_10": {
+			"A2_green": {
 				"chaos_text": "CHAOS_REPLY_10B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_10": {
+			"B1_green": {
 				"chaos_text": "CHAOS_REPLY_10C",
 				"next_target": null
 			}
@@ -211,20 +211,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"11_seed": {
-		"caller_id": "CALLER_SEED_11",
+		"caller_id": "B2_red",
 		"initial_text": "HOOK_TAG_11",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_11",
+		"correct_target": "A1_red",
 		"success_text": "SUCCESS_REPLY_11A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_11": {
+			"B4_green": {
 				"chaos_text": "CHAOS_REPLY_11B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_11": {
+			"A5_green": {
 				"chaos_text": "CHAOS_REPLY_11C",
 				"next_target": null
 			}
@@ -232,20 +232,20 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"12_seed": {
-		"caller_id": "CALLER_SEED_12",
+		"caller_id": "A3_red",
 		"initial_text": "HOOK_TAG_12",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_12",
+		"correct_target": "B5_red",
 		"success_text": "SUCCESS_REPLY_12A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_12": {
+			"A2_red": {
 				"chaos_text": "CHAOS_REPLY_12B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_12": {
+			"B3_green": {
 				"chaos_text": "CHAOS_REPLY_12C",
 				"next_target": null
 			}
@@ -253,41 +253,41 @@ const NARRATIVES: Dictionary = {
 	},
 	
 	"13_seed": {
-		"caller_id": "CALLER_SEED_13",
+		"caller_id": "B4_red",
 		"initial_text": "HOOK_TAG_13",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_13",
+		"correct_target": "A5_red",
 		"success_text": "SUCCESS_REPLY_13A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_13": {
+			"B1_red": {
 				"chaos_text": "CHAOS_REPLY_13B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_13": {
+			"A1_green": {
 				"chaos_text": "CHAOS_REPLY_13C",
 				"next_target": null
 			}
 		}
 	},
 	
-		"14_seed": {
-		"caller_id": "CALLER_SEED_14",
+	"14_seed": {
+		"caller_id": "A2_red",
 		"initial_text": "HOOK_TAG_14",
 		# Caminho principal (sucesso)
-		"correct_target": "CORRECT_TARGET_14",
+		"correct_target": "B2_green",
 		"success_text": "SUCCESS_REPLY_14A",
 		"next_trigger_success": null,
 		
 		# Mapeamento de erros
 		"wrong_targets": {
-			"WRONG_TARGET_B_14": {
+			"A4_green": {
 				"chaos_text": "CHAOS_REPLY_14B",
 				"next_trigger": null
 			},
-			"WRONG_TARGET_C_14": {
+			"B5_red": {
 				"chaos_text": "CHAOS_REPLY_14C",
 				"next_target": null
 			}

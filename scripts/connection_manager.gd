@@ -31,15 +31,10 @@ const DIRECTORY: Dictionary = {
 	"B5_green": "Restaurant"
 }
 
-# Exemplo provisório
-var active_gabarito: Dictionary = {
-	"A1_green": "B5_green",
-	"A1_red": "B1_red"
-}
 
 func _ready() -> void:
 	NarrativeManager.reset_call_pool()
-	spawn_next_call()
+	call_deferred("spawn_next_call")
 
 
 func evaluate_new_connection(trigger_port: Area2D) -> void:
@@ -110,39 +105,63 @@ func _trace_from_origin(origin_port: Area2D) -> void:
 
 
 func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: Array) -> void:
-	var origin_id = origin_port.get_full_id()
-	var destination_id = destination_port.get_full_id()
-	var caller_name = DIRECTORY.get(origin_id, origin_id)
-	var target_name = DIRECTORY.get(destination_id, destination_id)
+	var call_data: Dictionary = NarrativeManager.NARRATIVES.get(current_call_id, {})
+	
+	if call_data.is_empty():
+		print("\n⚪ Linha fantasma: Conexão feita, mas não há chamada na linha.")
+		return
+		
+	var origin_grid = origin_port.get_full_id() 
+	var destination_grid = destination_port.get_full_id() 
 	var first_cable = origin_port.connected_pin.get_parent()
 	var last_cable = destination_port.connected_pin.get_parent()
+	var caller_id: String = call_data["caller_id"] # Ex: "A1_red"
+	var expected_origin_grid = caller_id.split("_")[0] # Ex: "A1"
+	var expected_origin_color = caller_id.split("_")[1] # Ex: "red"
+	var caller_name = DIRECTORY.get(caller_id, caller_id)
 	
-	if first_cable.cable_color != origin_port.current_light and origin_port.current_light != "none":
-		print("\n📵 LIGAÇÃO CAIU! O cabo [", first_cable.cable_color, "] não serve para a chamada [", origin_port.current_light, "].")
-		print("Tentativa: ", path)
+	if origin_grid != expected_origin_grid:
+		print("\n⚪ Linha cruzada: A origem plugada (", origin_grid, ") não é quem está chamando (", expected_origin_grid, ").")
+		connection_dropped.emit(caller_name, "Origem incorreta")
+		return
+		
+	if first_cable.cable_color != expected_origin_color:
+		print("\n📵 LIGAÇÃO CAIU! O cabo [", first_cable.cable_color, "] não serve para a chamada [", expected_origin_color, "].")
 		connection_dropped.emit(caller_name, "Cabo incompatível na origem")
 		return
-	
-	if active_gabarito.has(origin_id):
-		var expected_destination = active_gabarito[origin_id]
 		
-		if destination_id == expected_destination and last_cable.cable_color == destination_port.current_light:
+	var correct_id: String = call_data["correct_target"] # Ex: "B1_red"
+	var correct_grid = correct_id.split("_")[0]
+	var correct_color = correct_id.split("_")[1]
+	var correct_name = DIRECTORY.get(correct_id, correct_id)
+	
+	if destination_grid == correct_grid:
+		if last_cable.cable_color == correct_color:
 			print("\n🟢 CONEXÃO ESTABELECIDA COM SUCESSO!")
 			print("Caminho físico: ", path)
-			print(caller_name, " está conversando com ", target_name, ".")
-			connection_success.emit(caller_name, target_name)
+			connection_success.emit(caller_name, correct_name)
+			_clear_current_call_visuals(current_call_id)
+			_advance_narrative(call_data.get("next_trigger_success"))
 		else:
+			print("\n📵 LIGAÇÃO CAIU! Destino certo, mas cor do pino errada no final.")
+			connection_dropped.emit(caller_name, "Cabo incompatível no destino")
+		return
+		
+	for wrong_id in call_data.get("wrong_targets", {}).keys():
+		var wrong_grid = wrong_id.split("_")[0]
+		if destination_grid == wrong_grid:
+			var chaos_data = call_data["wrong_targets"][wrong_id]
+			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
 			print("\n🔴 INSTABILIDADE NA LINHA! INSTALAÇÃO DO CAOS!")
 			print("Caminho físico: ", path)
-			if destination_id == expected_destination:
-				print("Causa do Caos: Destino correto (", target_name, "), mas o cabo usado na chegada foi [", last_cable.cable_color, "] em vez de [", destination_port.current_light, "]!")
-			else:
-				print("Causa do Caos: Era para ", caller_name, " falar com ", DIRECTORY.get(expected_destination), ", mas caiu no(a) ", target_name, "!")
-			connection_chaos.emit(caller_name, target_name, origin_id, destination_id)
-	else:
-		print("\n⚪ Linha fantasma: Conexão feita entre ", caller_name, " e ", target_name, ", mas ninguém ligou.")
-		
-
+			connection_chaos.emit(caller_name, wrong_name, caller_id, wrong_id)
+			_clear_current_call_visuals(current_call_id)
+			_advance_narrative(chaos_data.get("next_trigger"))
+			return
+			
+	print("\n⚪ Linha cruzada: O jogador plugou em um lugar irrelevante para essa chamada.")
+	connection_dropped.emit(caller_name, "Destino não mapeado na narrativa atual")
+	
 
 func spawn_next_call():
 	if NarrativeManager.available_calls.is_empty():
@@ -155,7 +174,29 @@ func spawn_next_call():
 	NarrativeManager.available_calls.erase(random_call)
 	current_call_id = random_call
 	print(">> O telefone toca! Nova chamada recebida: ", current_call_id)
-	new_call_started.emit(current_call_id)
+	#new_call_started.emit(current_call_id)
+	var call_data = NarrativeManager.NARRATIVES[random_call]
+	var caller_id: String = call_data["caller_id"]
+	var caller_color: String = caller_id.split("_")[1]
+	var caller_port = _get_port_by_id(caller_id)
+	
+	if caller_port:
+		caller_port.set_led_blinking(caller_color, 0.1)
+		await get_tree().create_timer(1.5).timeout
+		caller_port.set_led_solid(caller_color)
+		new_call_started.emit(current_call_id)
+		
+		var correct_id: String = call_data["correct_target"]
+		var correct_color: String = correct_id.split("_")[1]
+		var correct_port = _get_port_by_id(correct_id)
+		if correct_port:
+			correct_port.set_led_blinking(correct_color, 0.5)
+			
+		for wrong_id in call_data.get("wrong_targets", {}).keys():
+			var wrong_color: String = wrong_id.split("_")[1]
+			var wrong_port = _get_port_by_id(wrong_id)
+			if wrong_id:
+				wrong_port.set_led_blinking(wrong_color, 0.5)
 
 
 func _advance_narrative(next_id):
@@ -166,3 +207,32 @@ func _advance_narrative(next_id):
 	else:
 		print(">> Fim deste atendimento. Aguardando a próxima ligação...")
 		spawn_next_call()
+
+
+func _get_port_by_id(target_id: String):
+	var parts = target_id.split("_")
+	var target_grid = parts[0]
+	var all_ports = get_tree().get_nodes_in_group("panel_ports")
+	
+	for port in all_ports:
+		if port.grid_pos == target_grid:
+			return port
+	
+	print("⚠️ AVISO: Porta física não encontrada para o ID -> ", target_id)
+	return null
+
+
+func _clear_current_call_visuals(call_id: String):
+	var call_data = NarrativeManager.NARRATIVES.get(call_id, {})
+	if call_data.is_empty(): return
+	
+	var caller_port = _get_port_by_id(call_data["caller_id"])
+	if caller_port: caller_port.set_led_idle()
+	
+	var correct_port = _get_port_by_id(call_data["correct_target"])
+	if correct_port: correct_port.set_led_idle()
+	
+	for wrong_id in call_data.get("wrong_targets", {}).keys():
+		var wrong_port = _get_port_by_id(wrong_id)
+		if wrong_port: wrong_port.set_led_idle()
+		
