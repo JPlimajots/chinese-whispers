@@ -9,10 +9,9 @@ extends Node2D
 @export var gravity_y: float = 2800.0
 @export var damping: float = 0.94 
 
-@export_enum("red", "green") var cable_color: String = "red":
-	set(value):
-		cable_color = value
-		_update_cable_visuals()
+@export_enum("red", "green") var cable_color: String = "red"
+@export var red_cable_texture: Texture2D
+@export var green_cable_texture: Texture2D
 
 var max_length: float = 0.0
 var gravity: Vector2 = Vector2.ZERO
@@ -22,13 +21,18 @@ var pos_old: Array[Vector2] = []
 
 
 func _ready() -> void:
+	if cable_color == "red":
+		wire.texture = red_cable_texture
+	elif cable_color == "green":
+		wire.texture = green_cable_texture
+	
 	gravity = Vector2(0, gravity_y)
-	max_length = pin_1.global_position.distance_to(pin_2.global_position)
+	max_length = pin_1.get_wire_pos().distance_to(pin_2.get_wire_pos())
 	segment_length = max_length / (num_segments - 1)
 	
 	wire.clear_points()
 	for i in range(num_segments):
-		var start_pos = pin_1.global_position.lerp(pin_2.global_position, float(i) / (num_segments - 1))
+		var start_pos = pin_1.get_wire_pos().lerp(pin_2.get_wire_pos(), float(i) / (num_segments - 1))
 		pos_current.append(start_pos)
 		pos_old.append(start_pos)
 		wire.add_point(to_local(start_pos))
@@ -36,7 +40,6 @@ func _ready() -> void:
 	pin_1.pin_canceled.connect(_on_pin_canceled)
 	pin_2.pin_canceled.connect(_on_pin_canceled)
 	
-	_update_cable_visuals()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -73,7 +76,7 @@ func _simulate_rope(delta: float):
 		
 		if pos_current[i].y > floor_y:
 			pos_current[i].y = floor_y
-			pos_current[i].x = pos_old[i].x
+			#pos_current[i].x = pos_old[i].x
 	
 	for _iteration in range(stiffness):
 		for i in range(num_segments - 1):
@@ -83,14 +86,14 @@ func _simulate_rope(delta: float):
 			pos_current[i] = center + offset
 			pos_current[i+1] = center - offset
 		if pin_1.is_dragging or pin_1.connected_port != null or pin_1.is_returning:
-			pos_current[0] = pin_1.global_position
+			pos_current[0] = pin_1.get_wire_pos()
 		if pin_2.is_dragging or pin_2.connected_port != null or pin_2.is_returning:
-			pos_current[num_segments - 1] = pin_2.global_position
+			pos_current[num_segments - 1] = pin_2.get_wire_pos()
 	
 	if not pin_1.is_dragging and pin_1.connected_port == null and not pin_1.is_returning:
-		pin_1.global_position = pos_current[0]
+		pin_1.global_position = pos_current[0] - pin_1.get_wire_offset()
 	if not pin_2.is_dragging and pin_2.connected_port == null and not pin_2.is_returning:
-		pin_2.global_position = pos_current[num_segments - 1]
+		pin_2.global_position = pos_current[num_segments - 1] - pin_2.get_wire_offset()
 	
 	for i in range(num_segments):
 		wire.set_point_position(i, to_local(pos_current[i]))
@@ -102,33 +105,29 @@ func _on_return_finished():
 
 
 func _apply_leash() -> void:
-	var current_dist = pin_1.global_position.distance_to(pin_2.global_position)
+	var p1_anchor = pin_1.get_wire_pos()
+	var p2_anchor = pin_2.get_wire_pos()
+	var current_dist = p1_anchor.distance_to(p2_anchor)
 	
 	if current_dist > max_length:
 		if pin_1.is_dragging:
 			if pin_2.connected_port != null:
-				var dir = pin_2.global_position.direction_to(pin_1.global_position)
-				pin_1.global_position = pin_2.global_position + (dir * max_length)
+				var dir = p2_anchor.direction_to(p1_anchor)
+				var target_anchor_pos = p2_anchor + (dir * max_length)
+				pin_1.global_position = target_anchor_pos - pin_1.get_wire_offset()
 			else:
-				var dir = pin_1.global_position.direction_to(pin_2.global_position)
-				pin_2.global_position = pin_1.global_position + (dir * max_length)
+				var dir = p1_anchor.direction_to(p2_anchor)
+				var target_anchor_pos = p1_anchor + (dir * max_length)
+				pin_2.global_position = target_anchor_pos - pin_2.get_wire_offset()
 		elif pin_2.is_dragging:
 			if pin_1.connected_port != null:
-				var dir = pin_1.global_position.direction_to(pin_2.global_position)
-				pin_2.global_position = pin_1.global_position + (dir * max_length)
+				var dir = p1_anchor.direction_to(p2_anchor)
+				var target_anchor_pos = p1_anchor + (dir * max_length)
+				pin_2.global_position = target_anchor_pos - pin_2.get_wire_offset()
 			else:
-				var dir = pin_2.global_position.direction_to(pin_1.global_position)
-				pin_1.global_position = pin_2.global_position + (dir * max_length)
-
-
-func _update_cable_visuals():
-	if not is_inside_tree() or not wire:
-		return
-	
-	if cable_color == "red":
-		wire.default_color = Color("#b62222")
-	elif cable_color == "green":
-		wire.default_color = Color("#228b45")
+				var dir = p2_anchor.direction_to(p1_anchor)
+				var target_anchor_pos = p2_anchor + (dir * max_length)
+				pin_1.global_position = target_anchor_pos - pin_1.get_wire_offset()
 
 
 func get_other_pin(entry_pin: Area2D):

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dyicwo1jeapdp" path="res://scripts/port.gd" id="1_4bvp8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4bvp8"]
-radius = 26.0
+radius = 8.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oyquu"]
 blend_mode = 1
@@ -26,8 +26,8 @@ shape = SubResource("CircleShape2D_4bvp8")
 
 [node name="LedGlow" type="Sprite2D" parent="." unique_id=1526203774]
 material = SubResource("CanvasItemMaterial_oyquu")
-position = Vector2(-72, 16)
-scale = Vector2(0.6523437, 0.65625006)
+position = Vector2(-20.515625, 4.935483)
+scale = Vector2(0.17138678, 0.18951613)
 texture = SubResource("GradientTexture2D_opbk4")
 
 [node name="LedTimer" type="Timer" parent="." unique_id=2120705370]
