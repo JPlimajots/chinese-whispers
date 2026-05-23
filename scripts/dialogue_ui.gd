@@ -13,6 +13,8 @@ var current_char_index: int = 0
 var active_label: RichTextLabel = null
 var current_talking_character: String = ""
 var is_mouth_open: bool = false
+var active_portrait: TextureRect = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -71,6 +73,7 @@ func _start_typewriter(text_tag: String, target_balloon: Control, target_label: 
 	active_label = target_label
 	active_label.text = ""
 	current_talking_character = character_name
+	active_portrait = target_portrait
 	# -- INÍCIO DO DEBUG --
 	print("-- TENTANDO MOSTRAR SPRITE --")
 	print("Nome recebido: '", character_name, "'")
@@ -89,13 +92,39 @@ func _start_typewriter(text_tag: String, target_balloon: Control, target_label: 
 
 func _on_typewriter_timer_timeout():
 	if active_label and current_char_index < current_text.length():
-		active_label.text += current_text[current_char_index]
+		# Pega a letra atual antes de colocar na tela
+		var current_char = current_text[current_char_index]
+		
+		# 1. Digita a letra atual
+		active_label.text += current_char
 		current_char_index += 1
+		
+		# 2. Só alterna a boca se a letra NÃO for um espaço vazio!
+		if current_char != " ":
+			is_mouth_open = !is_mouth_open
+			
+			# 3. Aplica a textura correta
+			if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
+				var sprites = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
+				
+				if sprites["talk"] != null and active_portrait != null:
+					if is_mouth_open:
+						active_portrait.texture = sprites["talk"]
+						# print("DEBUG: Boca aberta para ", current_talking_character)
+					else:
+						active_portrait.texture = sprites["idle"]
+						# print("DEBUG: Boca fechada para ", current_talking_character)
 	else:
+		# 4. O texto terminou
 		typewriter_timer.stop()
 		ConnectionManager.is_typing = false
 		ConnectionManager.typing_finished.emit()
-
+		
+		# 5. Fecha a boca quando terminar de falar
+		if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
+			var sprites = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
+			if active_portrait != null and sprites["idle"] != null:
+				active_portrait.texture = sprites["idle"]
 
 func _clear_text():
 	caller_label.text = ""
