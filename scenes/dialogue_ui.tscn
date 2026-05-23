@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bekeim1pt4da6"]
 
 [ext_resource type="Script" uid="uid://bgxn548xp3bbt" path="res://scripts/dialogue_ui.gd" id="1_dwk8m"]
+[ext_resource type="Texture2D" uid="uid://bpim5pp5yeal" path="res://assets/sprites/Balão de Fala.png" id="2_6q285"]
 
 [node name="DialogueUI" type="CanvasLayer" unique_id=1232079868]
 script = ExtResource("1_dwk8m")
@@ -14,19 +15,48 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BalloonBackground" type="TextureRect" parent="MainControl" unique_id=1819119217]
+[node name="CallerBalloon" type="NinePatchRect" parent="MainControl" unique_id=1348209949]
 layout_mode = 0
-offset_left = 396.0
-offset_top = 93.0
-offset_right = 1453.0
-offset_bottom = 246.0
-mouse_filter = 2
+offset_left = 458.0
+offset_top = 24.0
+offset_right = 615.0
+offset_bottom = 79.0
+texture = ExtResource("2_6q285")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[node name="DialogueLabel" type="RichTextLabel" parent="MainControl/BalloonBackground" unique_id=182352802]
+[node name="CallerLabel" type="RichTextLabel" parent="MainControl/CallerBalloon" unique_id=182352802]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = -2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
+
+[node name="ReceiverBalloon" type="NinePatchRect" parent="MainControl" unique_id=1669179202]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 102.0
+offset_right = 615.0
+offset_bottom = 157.0
+texture = ExtResource("2_6q285")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="ReceiverLabel" type="RichTextLabel" parent="MainControl/ReceiverBalloon" unique_id=85837493]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = -2.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
