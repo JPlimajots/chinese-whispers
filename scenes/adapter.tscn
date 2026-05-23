@@ -7,6 +7,8 @@
 script = ExtResource("1_1gd26")
 
 [node name="PortA" parent="." unique_id=1841993091 instance=ExtResource("3_v0cm8")]
+has_leds = false
 
 [node name="PortB" parent="." unique_id=29334211 instance=ExtResource("3_v0cm8")]
 position = Vector2(25, 0)
+has_leds = false
