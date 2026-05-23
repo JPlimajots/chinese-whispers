@@ -65,6 +65,7 @@ func _check_drop_zone():
 			global_position = target_pos
 			ConnectionManager.evaluate_new_connection(area)
 			update_visuals()
+			update_cable_wire()
 			return
 
 
@@ -73,6 +74,7 @@ func disconnect_from_port():
 		connected_port.connected_pin = null
 		connected_port = null
 		update_visuals()
+		update_cable_wire()
 
 
 func get_wire_pos():
@@ -117,3 +119,9 @@ func update_visuals():
 			pin_sprite.texture = red_pin_texture
 		else:
 			pin_sprite.texture = green_pin_texture
+
+
+func update_cable_wire():
+	var parent_cable = get_parent()
+	if parent_cable and parent_cable.has_method("update_wire_thickness"):
+		parent_cable.update_wire_thickness()

@@ -10,6 +10,8 @@ position = Vector2(383, 218)
 script = ExtResource("1_j3i3n")
 num_segments = 20
 stiffness = 70
+wire_width_connected = 10.0
+funnel_lenght_ratio = 0.2
 red_cable_texture = ExtResource("2_0nbdv")
 green_cable_texture = ExtResource("2_mrtv2")
 

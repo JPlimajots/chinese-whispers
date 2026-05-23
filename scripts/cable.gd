@@ -9,6 +9,10 @@ extends Node2D
 @export var gravity_y: float = 2800.0
 @export var damping: float = 0.94 
 
+@export var wire_width_base: float = 5.0
+@export var wire_width_connected: float = 12.0
+@export_range(0.0, 5.0) var funnel_lenght_ratio: float = 0.1
+
 @export_enum("red", "green") var cable_color: String = "red"
 @export var red_cable_texture: Texture2D
 @export var green_cable_texture: Texture2D
@@ -18,6 +22,7 @@ var gravity: Vector2 = Vector2.ZERO
 var segment_length: float = 0.0
 var pos_current: Array[Vector2] = []
 var pos_old: Array[Vector2] = []
+var funnel_curve: Curve
 
 
 func _ready() -> void:
@@ -39,7 +44,7 @@ func _ready() -> void:
 	
 	pin_1.pin_canceled.connect(_on_pin_canceled)
 	pin_2.pin_canceled.connect(_on_pin_canceled)
-	
+	update_wire_thickness()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -137,3 +142,39 @@ func get_other_pin(entry_pin: Area2D):
 		return pin_1
 	
 	return null
+
+
+func update_wire_thickness():
+	if pin_1 == null or pin_2 == null:
+		return
+	
+	var is_p1_connected = pin_1.connected_port != null
+	var is_p2_connected = pin_2.connected_port != null
+	var ratio = wire_width_base / wire_width_connected
+	
+	if funnel_curve == null:
+		funnel_curve = Curve.new()
+		wire.width_curve = funnel_curve
+		wire.width = wire_width_connected
+	
+	funnel_curve.clear_points()
+	
+	var l_ratio = funnel_lenght_ratio
+	var r_ratio = 1.0 - funnel_lenght_ratio
+	
+	if not is_p1_connected and not is_p2_connected:
+		funnel_curve.add_point(Vector2(0.0, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+		funnel_curve.add_point(Vector2(1.0, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+	elif is_p1_connected and not is_p2_connected:
+		funnel_curve.add_point(Vector2(0.0, 1.0), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+		funnel_curve.add_point(Vector2(l_ratio, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+		funnel_curve.add_point(Vector2(1.0, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+	elif not is_p1_connected and is_p2_connected:
+		funnel_curve.add_point(Vector2(0.0, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+		funnel_curve.add_point(Vector2(r_ratio, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR) 
+		funnel_curve.add_point(Vector2(1.0, 1.0), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+	else:
+		funnel_curve.add_point(Vector2(0.0, 1.0), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR) 
+		funnel_curve.add_point(Vector2(l_ratio, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
+		funnel_curve.add_point(Vector2(r_ratio, ratio), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR) 
+		funnel_curve.add_point(Vector2(1.0, 1.0), 0, 0, Curve.TANGENT_LINEAR, Curve.TANGENT_LINEAR)
