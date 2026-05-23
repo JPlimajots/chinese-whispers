@@ -273,6 +273,6 @@ func _clear_current_call_visuals(call_id: String):
 		
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("interact_confirm"):
 		player_confirmed.emit()
-		print(">> [DEBUG] Tecla ENTER detectada. Sinal player_confirmed disparado!")
+		print(">> [DEBUG] Tecla ESPAÇO detectada. Sinal player_confirmed disparado!")
