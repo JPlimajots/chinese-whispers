@@ -18,6 +18,7 @@ red_pin_texture = ExtResource("2_4va3d")
 green_pin_texture = ExtResource("2_7o8e5")
 red_connected_texture = ExtResource("4_h5r78")
 green_connected_texture = ExtResource("5_lvu6c")
+connected_offset_x = -7.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=13187041]
 position = Vector2(0.5, 0)

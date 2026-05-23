@@ -6,6 +6,7 @@ signal pin_canceled
 @export var green_pin_texture: Texture2D
 @export var red_connected_texture: Texture2D
 @export var green_connected_texture: Texture2D
+@export var connected_offset_x:float = -4.0
 
 @onready var pin_sprite: Sprite2D = $Sprite2D
 @onready var anchor_normal: Marker2D = $WireAnchorNormal
@@ -59,7 +60,9 @@ func _check_drop_zone():
 				continue
 			connected_port = area
 			area.connected_pin = self
-			global_position = area.global_position
+			var target_pos = area.global_position
+			target_pos.x += connected_offset_x
+			global_position = target_pos
 			ConnectionManager.evaluate_new_connection(area)
 			update_visuals()
 			return
