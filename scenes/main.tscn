@@ -17,46 +17,97 @@ offset_right = 640.0
 offset_bottom = 339.0
 texture = ExtResource("2_tefeu")
 stretch_mode = 6
+metadata/_edit_lock_ = true
 
 [node name="PortA1" parent="." unique_id=1841993091 instance=ExtResource("1_0wfyh")]
 position = Vector2(141, 160)
 grid_pos = "A1"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortA1" index="1" unique_id=1526203774]
+position = Vector2(-20.5, 4.5)
+scale = Vector2(0.18701184, 0.18951613)
 
 [node name="PortA2" parent="." unique_id=1246378384 instance=ExtResource("1_0wfyh")]
 position = Vector2(182, 160)
 grid_pos = "A2"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortA2" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.17944342, 0.18951613)
 
 [node name="PortA3" parent="." unique_id=471047900 instance=ExtResource("1_0wfyh")]
 position = Vector2(223, 160)
 grid_pos = "A3"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortA3" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="PortA4" parent="." unique_id=1950886868 instance=ExtResource("1_0wfyh")]
 position = Vector2(264, 160)
 grid_pos = "A4"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortA4" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="PortA5" parent="." unique_id=985311117 instance=ExtResource("1_0wfyh")]
 position = Vector2(305, 160)
 grid_pos = "A5"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortA5" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="PortB1" parent="." unique_id=1087475790 instance=ExtResource("1_0wfyh")]
 position = Vector2(141, 193)
 grid_pos = "B1"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortB1" index="1" unique_id=1526203774]
+position = Vector2(-20.5, 4.5)
+scale = Vector2(0.18701184, 0.18951613)
 
 [node name="PortB2" parent="." unique_id=2001554900 instance=ExtResource("1_0wfyh")]
 position = Vector2(182, 193)
 grid_pos = "B2"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortB2" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701184, 0.18951613)
 
 [node name="PortB3" parent="." unique_id=1323114058 instance=ExtResource("1_0wfyh")]
 position = Vector2(223, 193)
 grid_pos = "B3"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortB3" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="PortB4" parent="." unique_id=721839783 instance=ExtResource("1_0wfyh")]
 position = Vector2(264, 193)
 grid_pos = "B4"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortB4" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="PortB5" parent="." unique_id=1226192632 instance=ExtResource("1_0wfyh")]
 position = Vector2(305, 193)
 grid_pos = "B5"
+metadata/_edit_lock_ = true
+
+[node name="LedGlow" parent="PortB5" index="1" unique_id=1526203774]
+position = Vector2(-21.5, 4.5)
+scale = Vector2(0.18701167, 0.18951613)
 
 [node name="Adapter" parent="." unique_id=175394667 instance=ExtResource("5_tbgi4")]
 position = Vector2(209, 264)
@@ -69,3 +120,14 @@ position = Vector2(230, 305)
 cable_color = "green"
 
 [node name="DialogueUI" parent="." unique_id=1232079868 instance=ExtResource("6_tefeu")]
+
+[editable path="PortA1"]
+[editable path="PortA2"]
+[editable path="PortA3"]
+[editable path="PortA4"]
+[editable path="PortA5"]
+[editable path="PortB1"]
+[editable path="PortB2"]
+[editable path="PortB3"]
+[editable path="PortB4"]
+[editable path="PortB5"]
