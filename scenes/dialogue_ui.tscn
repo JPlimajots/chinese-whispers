@@ -17,10 +17,10 @@ mouse_filter = 2
 
 [node name="CallerBalloon" type="NinePatchRect" parent="MainControl" unique_id=1348209949]
 layout_mode = 0
-offset_left = 458.0
-offset_top = 24.0
-offset_right = 615.0
-offset_bottom = 79.0
+offset_left = 463.0
+offset_top = 45.0
+offset_right = 620.0
+offset_bottom = 100.0
 texture = ExtResource("2_6q285")
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
@@ -40,10 +40,10 @@ theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
 
 [node name="ReceiverBalloon" type="NinePatchRect" parent="MainControl" unique_id=1669179202]
 layout_mode = 0
-offset_left = 458.0
-offset_top = 102.0
-offset_right = 615.0
-offset_bottom = 157.0
+offset_left = 462.0
+offset_top = 123.0
+offset_right = 619.0
+offset_bottom = 178.0
 texture = ExtResource("2_6q285")
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
@@ -60,6 +60,20 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
+
+[node name="CallerPortrait" type="TextureRect" parent="MainControl" unique_id=1893925772]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 24.0
+offset_right = 430.0
+offset_bottom = 64.0
+
+[node name="ReceiverPortrait" type="TextureRect" parent="MainControl" unique_id=1694653860]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 102.0
+offset_right = 430.0
+offset_bottom = 142.0
 
 [node name="TypewriterTimer" type="Timer" parent="." unique_id=1758948054]
 wait_time = 0.05
