@@ -144,7 +144,13 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			print("\n🟢 CONEXÃO ESTABELECIDA COM SUCESSO!")
 			print("Caminho físico: ", path)
 			connection_success.emit(caller_name, correct_name)
-			_clear_current_call_visuals(current_call_id)
+			var origin_node = _get_port_by_id(caller_id)
+			if origin_node: origin_node.set_led_solid(expected_origin_color)
+			var dest_node = _get_port_by_id(correct_id)
+			if dest_node: dest_node.set_led_solid(correct_color)
+			for w_id in call_data.get("wrong_targets", {}).keys():
+				var w_port = _get_port_by_id(w_id)
+				if w_port: w_port.set_led_idle()
 			await get_tree().create_timer(2.0).timeout
 			_advance_narrative(call_data.get("next_trigger_success"))
 		else:
@@ -159,7 +165,16 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
 			print("\n🔴 INSTABILIDADE NA LINHA! INSTALAÇÃO DO CAOS!")
 			print("Caminho físico: ", path)
-			_clear_current_call_visuals(current_call_id)
+			var origin_node = _get_port_by_id(caller_id)
+			if origin_node: origin_node.set_led_solid(expected_origin_color)
+			var dest_node = _get_port_by_id(wrong_id)
+			if dest_node: dest_node.set_led_solid(wrong_id.split("_")[1])
+			var c_port = _get_port_by_id(correct_id)
+			if c_port: c_port.set_led_idle()
+			for other_w_id in call_data.get("wrong_targets", {}).keys():
+				if other_w_id != wrong_id:
+					var w_port = _get_port_by_id(other_w_id)
+					if w_port: w_port.set_led_idle()
 			await get_tree().create_timer(2.0).timeout
 			connection_chaos.emit(caller_name, wrong_name, caller_id, wrong_id)
 			_advance_narrative(chaos_data.get("next_trigger"))
@@ -223,6 +238,7 @@ func _advance_narrative(next_id):
 		await player_confirmed
 		print(">> [DEBUG] Confirmação recebida! Limpando a interface...")
 		clear_ui_text.emit()
+		_clear_current_call_visuals(current_call_id)
 		await get_tree().create_timer(5.0).timeout
 		print(">> [DEBUG] Cooldown de silêncio finalizado. Sorteando o próximo caso...")
 		spawn_next_call()
