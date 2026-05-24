@@ -32,6 +32,10 @@ window/stretch/mode="viewport"
 
 ports=""
 
+[gui]
+
+theme/custom_font="uid://dcmotsejbpkqd"
+
 [input]
 
 interact_plug={
