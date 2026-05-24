@@ -7,6 +7,10 @@ extends CanvasLayer
 @onready var typewriter_timer: Timer = $TypewriterTimer
 @onready var caller_portrait: TextureRect = $MainControl/CallerPortrait
 @onready var receiver_portrait: TextureRect = $MainControl/ReceiverPortrait
+@onready var caller_name_label: Label = $MainControl/CallerNameBox/Label
+@onready var caller_name_box: Control = $MainControl/CallerNameBox
+@onready var receiver_name_label: Label = $MainControl/ReceiverNameBox/Label
+@onready var receiver_name_box: Control = $MainControl/ReceiverNameBox
 
 var current_text: String = ""
 var current_char_index: int = 0
@@ -14,12 +18,19 @@ var active_label: RichTextLabel = null
 var current_talking_character: String = ""
 var is_mouth_open: bool = false
 var active_portrait: TextureRect = null
+var current_lines: PackedStringArray = []
+var current_line_index: int = 0
+var is_waiting_for_next_line: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	caller_balloon.hide()
 	receiver_balloon.hide()
+	caller_portrait.hide()   
+	receiver_portrait.hide() 
+	caller_name_box.hide()   
+	receiver_name_box.hide() 
 	
 	ConnectionManager.connection_success.connect(_on_connection_success)
 	ConnectionManager.connection_chaos.connect(_on_connection_chaos)
@@ -68,17 +79,29 @@ func _on_connection_dropped(caller_name: String, reason: String):
 
 func _start_typewriter(text_tag: String, target_balloon: Control, target_label: RichTextLabel, character_name: String, target_portrait: TextureRect):
 	ConnectionManager.is_typing = true
-	current_text = text_tag
-	current_char_index = 0
+	current_lines = text_tag.split("\n")
+	current_line_index = 0
+	is_waiting_for_next_line = false
 	active_label = target_label
-	active_label.text = ""
 	current_talking_character = character_name
 	active_portrait = target_portrait
-	# -- INÍCIO DO DEBUG --
-	print("-- TENTANDO MOSTRAR SPRITE --")
-	print("Nome recebido: '", character_name, "'")
-	print("Tem no dicionário? ", NarrativeManager.CHARACTER_SPRITES.has(character_name))
-	# -- FIM DO DEBUG --
+	
+	var name_label: Label = null
+	var name_box: Control = null
+	
+	if target_balloon == caller_balloon:
+		name_label = caller_name_label
+		name_box = caller_name_box
+	else:
+		name_label = receiver_name_label
+		name_box = receiver_name_box
+	
+	if character_name != "" and name_label != null:
+		name_label.text = character_name
+		name_box.show()
+	elif name_box != null:
+		name_box.hide()
+	
 	if character_name != "" and NarrativeManager.CHARACTER_SPRITES.has(character_name):
 		var sprite = NarrativeManager.CHARACTER_SPRITES[character_name]
 		if sprite["idle"] != null:
@@ -87,7 +110,7 @@ func _start_typewriter(text_tag: String, target_balloon: Control, target_label: 
 	else:
 		target_portrait.hide()
 	target_balloon.show()
-	typewriter_timer.start()
+	_type_next_line()
 
 
 func _on_typewriter_timer_timeout():
@@ -106,12 +129,17 @@ func _on_typewriter_timer_timeout():
 						active_portrait.texture = sprites["idle"]
 	else:
 		typewriter_timer.stop()
-		ConnectionManager.is_typing = false
-		ConnectionManager.typing_finished.emit()
+
 		if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
 			var sprites = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
 			if active_portrait != null and sprites["idle"] != null:
 				active_portrait.texture = sprites["idle"]
+		
+		if current_line_index < current_lines.size() - 1:
+			is_waiting_for_next_line = true
+		else:
+			ConnectionManager.is_typing = false
+			ConnectionManager.typing_finished.emit()
 
 
 func _clear_text():
@@ -124,6 +152,8 @@ func _clear_text():
 	receiver_portrait.texture = null
 	caller_portrait.hide()
 	receiver_portrait.hide()
+	caller_name_box.hide()
+	receiver_name_box.hide()
 
 
 func _get_character_by_location(target_location: String):
@@ -132,3 +162,27 @@ func _get_character_by_location(target_location: String):
 			return port_data.get("default_character", "")
 	return ""
 	
+
+
+func _type_next_line():
+	current_text = current_lines[current_line_index]
+	current_char_index = 0
+	active_label.text = ""
+	is_mouth_open = false
+	
+	if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
+		var sprite = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
+		if sprite["idle"] != null:
+			active_portrait.texture = sprite["idle"]
+			active_portrait.show()
+	else:
+		active_portrait.hide()
+	
+	typewriter_timer.start()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact_confirm") and is_waiting_for_next_line:
+		is_waiting_for_next_line = false
+		current_line_index += 1
+		_type_next_line()

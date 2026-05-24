@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bgxn548xp3bbt" path="res://scripts/dialogue_ui.gd" id="1_dwk8m"]
 [ext_resource type="Texture2D" uid="uid://bpim5pp5yeal" path="res://assets/sprites/Balão de Fala.png" id="2_6q285"]
+[ext_resource type="FontFile" uid="uid://bqsnnf8t1t51k" path="res://assets/fonts/PixelOperator-Bold.ttf" id="3_jx1sv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jx1sv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6usr"]
 
 [node name="DialogueUI" type="CanvasLayer" unique_id=1232079868]
 script = ExtResource("1_dwk8m")
@@ -76,6 +81,36 @@ offset_left = 390.0
 offset_top = 102.0
 offset_right = 430.0
 offset_bottom = 142.0
+
+[node name="CallerNameBox" type="PanelContainer" parent="MainControl" unique_id=810081758]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 17.0
+offset_right = 512.0
+offset_bottom = 57.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jx1sv")
+
+[node name="Label" type="Label" parent="MainControl/CallerNameBox" unique_id=1935834313]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6901961, 0, 1)
+theme_override_fonts/font = ExtResource("3_jx1sv")
+theme_override_font_sizes/font_size = 14
+text = "Kleber"
+
+[node name="ReceiverNameBox" type="PanelContainer" parent="MainControl" unique_id=2102074165]
+layout_mode = 0
+offset_left = 465.0
+offset_top = 95.0
+offset_right = 511.0
+offset_bottom = 135.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e6usr")
+
+[node name="Label" type="Label" parent="MainControl/ReceiverNameBox" unique_id=1859533810]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6901961, 0, 1)
+theme_override_fonts/font = ExtResource("3_jx1sv")
+theme_override_font_sizes/font_size = 14
+text = "Cleber"
 
 [node name="TypewriterTimer" type="Timer" parent="." unique_id=1758948054]
 wait_time = 0.05
