@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ConnectionManager="*uid://csmmejpkph1vv"
 NarrativeManager="*uid://c36yibmy52y44"
+CursorManager="*uid://c0vjf2nil1lfl"
 
 [display]
 
@@ -27,6 +28,7 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://b3rs07d0bvdc0"
 
 [global_group]
 
