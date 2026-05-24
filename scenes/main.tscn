@@ -6,9 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://cstyych5dh6le" path="res://assets/sprites/bg_final.png" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://djqoxdn2228q1" path="res://scenes/adapter.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bekeim1pt4da6" path="res://scenes/dialogue_ui.tscn" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://thj6kruruxl3" path="res://scripts/time_manager.gd" id="7_o6xl0"]
+
+[sub_resource type="Gradient" id="Gradient_tipki"]
+offsets = PackedFloat32Array(0, 0.30053192, 0.625, 1)
+colors = PackedColorArray(0.93333334, 0.9607843, 1, 1, 1, 1, 1, 1, 1, 0.7607843, 0.52156866, 1, 0.36078432, 0.41960785, 0.56078434, 1)
 
 [node name="Main" type="Node2D" unique_id=874198836]
 script = ExtResource("1_sugp2")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1083160566]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
 
 [node name="Background" type="TextureRect" parent="." unique_id=379146385]
 texture_filter = 1
@@ -120,6 +130,10 @@ position = Vector2(230, 305)
 cable_color = "green"
 
 [node name="DialogueUI" parent="." unique_id=1232079868 instance=ExtResource("6_tefeu")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=316457777]
+script = ExtResource("7_o6xl0")
+day_cycle_gradient = SubResource("Gradient_tipki")
 
 [editable path="PortA1"]
 [editable path="PortA2"]
