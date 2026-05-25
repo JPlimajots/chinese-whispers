@@ -18,6 +18,9 @@ colors = PackedColorArray(0.93333334, 0.9607843, 1, 1, 1, 1, 1, 1, 1, 0.7607843,
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6xl0"]
+bg_color = Color(0.07450981, 0.07450981, 0.07450981, 0)
+
 [node name="Main" type="Node2D" unique_id=874198836]
 script = ExtResource("1_sugp2")
 
@@ -147,6 +150,42 @@ scale = Vector2(1.1461757, 0.75962526)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_o6xl0")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_tipki")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_85g3d")
+
+[node name="EndGamePanel" type="Panel" parent="." unique_id=625271281]
+offset_left = -5.0
+offset_top = -10.0
+offset_right = 647.0
+offset_bottom = 369.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o6xl0")
+
+[node name="MessageLabel" type="RichTextLabel" parent="EndGamePanel" unique_id=1543253612]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -178.0
+offset_top = -138.5
+offset_right = 173.0
+offset_bottom = 179.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuButton" type="Button" parent="EndGamePanel" unique_id=1534150875]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 166.0
+offset_top = 120.5
+offset_right = 300.0
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "RETURN TO MAIN MENU"
 
 [connection signal="pressed" from="InvisibleNotebookButton" to="." method="_on_invisible_notebook_button_pressed"]
 

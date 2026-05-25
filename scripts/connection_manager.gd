@@ -8,6 +8,8 @@ signal player_confirmed
 signal typing_finished
 signal clear_ui_text
 signal caller_lost_patience(text: String, caller_name: String)
+signal game_over
+signal shift_ended
 
 var current_call_id: String = ""
 var is_typing: bool = false
@@ -226,6 +228,7 @@ func spawn_next_call():
 	if NarrativeManager.available_calls.is_empty():
 		print(">> O expediente acabou! Nenhuma chamada restante na linha.")
 		current_call_id = ""
+		shift_ended.emit()
 		return
 	
 	call_resolved = false
@@ -384,7 +387,5 @@ func _trigger_hangup():
 
 
 func _trigger_game_over():
-	print("\n=======================================================")
-	print("                   GAME OVER")
-	print(" VOCÊ FOI DEMITIDO POR INCOMPETÊNCIA NO ATENDIMENTO!")
-	print("=======================================================\n")
+	print("\n>> [SISTEMA] Disparando sinal de Game Over...")
+	game_over.emit() 

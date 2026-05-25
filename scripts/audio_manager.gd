@@ -57,9 +57,9 @@ func play_text_blip():
 	text_blip_player.play()
 
 
-
 func stop_text_blip():
 	text_blip_player.stop()
+
 
 func play_foley(sound_type: String):
 	match sound_type:
