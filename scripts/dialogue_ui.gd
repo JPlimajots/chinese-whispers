@@ -12,6 +12,10 @@ extends CanvasLayer
 @onready var receiver_name_label: Label = $MainControl/ReceiverNameBox/Label
 @onready var receiver_name_box: Control = $MainControl/ReceiverNameBox
 @onready var open_notebook_ui: Control = $MainControl/OpenNotebookUI
+@onready var left_label: RichTextLabel = $MainControl/OpenNotebookUI/LeftLabel
+@onready var right_label: RichTextLabel = $MainControl/OpenNotebookUI/RightLabel
+@onready var next_button: Button = $MainControl/OpenNotebookUI/NextButton
+@onready var prev_button: Button = $MainControl/OpenNotebookUI/PrevButton
 
 var current_text: String = ""
 var current_char_index: int = 0
@@ -22,6 +26,10 @@ var active_portrait: TextureRect = null
 var current_lines: PackedStringArray = []
 var current_line_index: int = 0
 var is_waiting_for_next_line: bool = false
+var current_page = 1
+var items_per_side: int = 2
+var items_per_spread: int = items_per_side * 2
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -45,7 +53,10 @@ func _ready() -> void:
 	ConnectionManager.new_call_started.connect(display_current_hook)
 	ConnectionManager.clear_ui_text.connect(_clear_text)
 	ConnectionManager.caller_lost_patience.connect(_on_caller_lost_patience)
+	next_button.pressed.connect(_on_next_button_pressed)
+	prev_button.pressed.connect(_on_prev_button_pressed)
 	
+	_update_notebook_content()
 	display_current_hook(ConnectionManager.current_call_id)
 
 
@@ -204,9 +215,65 @@ func _on_caller_lost_patience(text: String, character_name: String):
 
 
 func show_notebook():
+	current_page = 1
+	_update_notebook_content()
 	open_notebook_ui.show()
 	
 
 
 func _on_close_button_pressed() -> void:
 	open_notebook_ui.hide()
+
+
+func _update_notebook_content():
+	if not NarrativeManager or not "PORT_DIRECTORY" in NarrativeManager:
+		return
+		
+	var all_ports = NarrativeManager.PORT_DIRECTORY.keys()
+	all_ports.sort()
+	
+	var total_spreads = ceil(float(all_ports.size()) / items_per_spread)
+	
+	prev_button.visible = current_page > 1
+	next_button.visible = current_page < total_spreads
+	
+	var left_text = ""
+	var right_text = ""
+	var start_idx = (current_page - 1) * items_per_spread
+
+	for i in range(items_per_spread):
+		var current_idx = start_idx + i
+		
+		if current_idx >= all_ports.size():
+			break 
+			
+		var port_id = all_ports[current_idx]
+		var line = _format_notebook_line(port_id)
+		
+		if i < items_per_side:
+			left_text += line
+		else:
+			right_text += line
+			
+	left_label.text = left_text
+	right_label.text = right_text
+
+
+func _format_notebook_line(port_id: String) -> String:
+	var data = NarrativeManager.PORT_DIRECTORY[port_id]
+	var location = data.get("location", "Desconhecido")
+	var hints = data.get("hints", [])
+	var hints_text = ""
+	if hints.size() >= 2:
+		hints_text = " (%s / %s)" % [hints[0], hints[1]]
+	return "%s — %s%s\n\n" % [port_id, location, hints_text]
+
+
+func _on_next_button_pressed():
+	current_page += 1
+	_update_notebook_content()
+
+
+func _on_prev_button_pressed():
+	current_page -= 1
+	_update_notebook_content()

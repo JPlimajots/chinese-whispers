@@ -11,6 +11,50 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1ric"]
 
+[sub_resource type="FontFile" id="FontFile_e6usr"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="FontFile_imsod"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ecd83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rn5aw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8oo06"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hypas"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rlpvr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_erym8"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jx1sv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6usr"]
@@ -28,7 +72,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="OpenNotebookUI" type="TextureRect" parent="MainControl" unique_id=177215755]
-visible = false
 layout_mode = 0
 offset_left = 414.00003
 offset_top = 157.00002
@@ -50,6 +93,56 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_imsod")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wlc0t")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_x1ric")
 text = "X"
+
+[node name="LeftLabel" type="RichTextLabel" parent="MainControl/OpenNotebookUI" unique_id=1687836229]
+layout_mode = 0
+offset_left = 17.43389
+offset_top = 18.249882
+offset_right = 91.87942
+offset_bottom = 148.84682
+rotation = 0.008726646
+theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
+theme_override_fonts/normal_font = SubResource("FontFile_e6usr")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+
+[node name="RightLabel" type="RichTextLabel" parent="MainControl/OpenNotebookUI" unique_id=1767640530]
+layout_mode = 0
+offset_left = 107.3963
+offset_top = 21.680206
+offset_right = 181.84183
+offset_bottom = 152.27715
+rotation = -0.008726646
+theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
+theme_override_fonts/normal_font = SubResource("FontFile_imsod")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+
+[node name="NextButton" type="Button" parent="MainControl/OpenNotebookUI" unique_id=1674188448]
+layout_mode = 0
+offset_left = 182.85995
+offset_top = 144.44107
+offset_right = 190.85995
+offset_bottom = 160.44107
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
+theme_override_colors/font_hover_color = Color(0.7019608, 0.14117648, 0.14117648, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ecd83")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn5aw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8oo06")
+text = ">"
+
+[node name="PrevButton" type="Button" parent="MainControl/OpenNotebookUI" unique_id=703085108]
+layout_mode = 0
+offset_left = 7.278763
+offset_top = 144.93797
+offset_right = 15.278763
+offset_bottom = 160.93797
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
+theme_override_colors/font_hover_color = Color(0.7019608, 0.14117648, 0.14117648, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hypas")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rlpvr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_erym8")
+text = "<"
 
 [node name="CallerBalloon" type="NinePatchRect" parent="MainControl" unique_id=1348209949]
 layout_mode = 0

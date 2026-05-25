@@ -1,26 +1,26 @@
 extends Node
 
 const PORT_DIRECTORY: Dictionary = {
-	"A1_red": {"location": "Hospital", "default_character": "Dr Daniel"},
-	"A1_green": {"location": "Pincer's Family House", "default_character": "Mrs Pincer"},
-	"A2_red": {"location": "Big Corp", "default_character": "Big Corp Administrator"},
-	"A2_green": {"location": "Johnson's Family House", "default_character": "Mrs Johnson"},
-	"A3_red": {"location": "Miller's Family House", "default_character": "Mr Miller"},
-	"A3_green": {"location": "Docks", "default_character": "Capitain Sullivan"},
-	"A4_red": {"location": "Mafia", "default_character": "Don Rossi"},
-	"A4_green": {"location": "Zoo", "default_character": "Zookeeper Griffin"},
-	"A5_red": {"location": "Mayor Pincer's Office", "default_character": "Secretary Donna"},
-	"A5_green": {"location": "Boss's Office", "default_character": "Boss"},
-	"B1_red": {"location": "Firefighters", "default_character": "Chief Caesar"},
-	"B1_green": {"location": "Police Precinct", "default_character": "Detective Lane"},
-	"B2_red": {"location": "School", "default_character": "Teacher Marianne"},
-	"B2_green": {"location": "Church", "default_character": "Father Robinson"},
-	"B3_red": {"location": "Thompson's Family House", "default_character": "Mr Thompson"},
-	"B3_green": {"location": "Silva's Family House", "default_character": "Mrs Silva"},
-	"B4_red": {"location": "Brothel", "default_character": "Pimp De Burgs"},
-	"B4_green": {"location": "Bakery", "default_character": "Baker Carl"},
-	"B5_red": {"location": "News", "default_character": "Journalist Sandra"},
-	"B5_green": {"location": "Restaurant", "default_character": "Chef Clark"} 
+	"A1_red": {"location": "Hospital", "hints": ["Patient", "Hallucination"], "default_character": "Dr Daniel"},
+	"A1_green": {"location": "Pincer's Family House", "hints": ["Secrets", "Reputation"], "default_character": "Mrs Pincer"},
+	"A2_red": {"location": "Big Corp", "hints": ["Auditors", "Payments"], "default_character": "Big Corp Administrator"},
+	"A2_green": {"location": "Johnson's Family House", "hints": ["Gossip", "Secrets"], "default_character": "Mrs Johnson"},
+	"A3_red": {"location": "Miller's Family House", "hints": ["Barn", "Beast"], "default_character": "Mr Miller"},
+	"A3_green": {"location": "Docks", "hints": ["Cargo", "Crates"], "default_character": "Capitain Sullivan"},
+	"A4_red": {"location": "Mafia", "hints": ["Debts", "Extortion"], "default_character": "Don Rossi"},
+	"A4_green": {"location": "Zoo", "hints": ["Animals", "Escape"], "default_character": "Zookeeper Griffin"},
+	"A5_red": {"location": "Mayor Pincer's Office", "hints": ["Mayor", "Scandal"], "default_character": "Secretary Donna"},
+	"A5_green": {"location": "Boss's Office", "hints": ["Management", "Threats"], "default_character": "Boss"},
+	"B1_red": {"location": "Firefighters", "hints": ["Rescue", "Growth"], "default_character": "Chief Caesar"},
+	"B1_green": {"location": "Police Precinct", "hints": ["Crime", "Missing"], "default_character": "Detective Lane"},
+	"B2_red": {"location": "School", "hints": ["Children", "Trouble"], "default_character": "Teacher Marianne"},
+	"B2_green": {"location": "Church", "hints": ["Angels", "Confession"], "default_character": "Father Robinson"},
+	"B3_red": {"location": "Thompson's Family House", "hints": ["Bread", "Recipe"], "default_character": "Mr Thompson"},
+	"B3_green": {"location": "Silva's Family House", "hints": ["Grandchildren", "Mayhem"], "default_character": "Mrs Silva"},
+	"B4_red": {"location": "Brothel", "hints": ["Affairs", "Customers"], "default_character": "Pimp De Burgs"},
+	"B4_green": {"location": "Bakery", "hints": ["Dough", "Baking"], "default_character": "Baker Carl"},
+	"B5_red": {"location": "News", "hints": ["Scandal", "Witnesses"], "default_character": "Journalist Sandra"},
+	"B5_green": {"location": "Restaurant", "hints": ["Chef", "Ingredients"], "default_character": "Chef Clark"} 
 }
 
 const CHARACTER_SPRITES: Dictionary = {
