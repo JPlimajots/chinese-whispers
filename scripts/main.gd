@@ -16,7 +16,7 @@ func _initialize_game() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quit"):
 		get_tree().quit()
-
+	
 
 func _on_invisible_notebook_button_pressed() -> void:
 	print(">> [INTERFACE] Botão invisível clicado!")

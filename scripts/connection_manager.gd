@@ -149,11 +149,13 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	
 	if origin_grid != expected_origin_grid:
 		print("\n⚪ Linha cruzada: A origem plugada (", origin_grid, ") não é quem está chamando (", expected_origin_grid, ").")
+		AudioManager.play_static()
 		connection_dropped.emit(caller_name, "Origem incorreta")
 		return
 		
 	if first_cable.cable_color != expected_origin_color:
 		print("\n📵 LIGAÇÃO CAIU! O cabo [", first_cable.cable_color, "] não serve para a chamada [", expected_origin_color, "].")
+		AudioManager.play_static()
 		connection_dropped.emit(caller_name, "Cabo incompatível na origem")
 		return
 		
@@ -181,6 +183,7 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			_advance_narrative(call_data.get("next_trigger_success"))
 		else:
 			print("\n📵 LIGAÇÃO CAIU! Destino certo, mas cor do pino errada no final.")
+			AudioManager.play_static()
 			connection_dropped.emit(caller_name, "Cabo incompatível no destino")
 		return
 		
@@ -210,6 +213,7 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			return
 			
 	print("\n⚪ Linha cruzada: O jogador plugou em um lugar irrelevante para essa chamada.")
+	AudioManager.play_static()
 	current_patience -= penalty_time
 	if current_patience > 0:
 		print(">> Punição de tempo! Paciência caiu para: ", int(current_patience), "s")
@@ -241,6 +245,7 @@ func spawn_next_call():
 		current_patience = max_patience
 		is_patience_ticking = true
 		is_ringing = true
+		AudioManager.play_ringing()
 		was_answered = false
 		while is_ringing and current_patience > 0:
 			await get_tree().process_frame
@@ -317,13 +322,16 @@ func _clear_current_call_visuals(call_id: String):
 	for wrong_id in call_data.get("wrong_targets", {}).keys():
 		var wrong_port = _get_port_by_id(wrong_id)
 		if wrong_port: wrong_port.set_led_idle()
-		
+	
+	AudioManager.stop_static()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_confirm"):
 		if is_ringing:
 			is_ringing = false
 			print(">> [DEBUG] Chamada atendida pelo jogador!")
+			AudioManager.play_foley("pickup")
+			AudioManager.stop_ringing()
 		else:
 			player_confirmed.emit()
 			print(">> [DEBUG] Tecla ESPAÇO detectada. Sinal player_confirmed disparado!")

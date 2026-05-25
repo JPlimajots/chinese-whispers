@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://beqkwb8doxq3i"]
+
+[ext_resource type="AudioStream" uid="uid://dsonrp4rseje2" path="res://assets/audio/phone_ringing.wav" id="1_3asnw"]
+[ext_resource type="Script" uid="uid://0rjsb7g0lxa1" path="res://scripts/audio_manager.gd" id="1_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://do2y4psymoqb2" path="res://assets/audio/static.wav" id="2_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://brvmq37l6yphh" path="res://assets/audio/text_blip.ogg" id="3_aoitu"]
+
+[node name="AudioManager" type="Node" unique_id=977497328]
+script = ExtResource("1_m6ggh")
+
+[node name="RigingPlayer" type="AudioStreamPlayer2D" parent="." unique_id=28911970]
+unique_name_in_owner = true
+stream = ExtResource("1_3asnw")
+
+[node name="StaticPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1075879633]
+unique_name_in_owner = true
+stream = ExtResource("2_m6ggh")
+
+[node name="FoleyPlayer" type="AudioStreamPlayer2D" parent="." unique_id=494520597]
+unique_name_in_owner = true
+
+[node name="UIPlayer" type="AudioStreamPlayer2D" parent="." unique_id=690249719]
+unique_name_in_owner = true
+
+[node name="TextBlipPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1975524677]
+unique_name_in_owner = true
+stream = ExtResource("3_aoitu")
+max_polyphony = 3

@@ -60,6 +60,7 @@ func _check_drop_zone():
 				continue
 			connected_port = area
 			area.connected_pin = self
+			AudioManager.play_foley("plug")
 			var target_pos = area.global_position
 			target_pos.x += connected_offset_x
 			global_position = target_pos
@@ -73,6 +74,8 @@ func disconnect_from_port():
 	if connected_port:
 		connected_port.connected_pin = null
 		connected_port = null
+		AudioManager.play_foley("unplug")
+		AudioManager.stop_static()
 		update_visuals()
 		update_cable_wire()
 

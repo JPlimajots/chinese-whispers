@@ -138,6 +138,7 @@ func _on_typewriter_timer_timeout():
 		active_label.text += current_char
 		current_char_index += 1
 		if current_char != " ":
+			AudioManager.play_text_blip()
 			is_mouth_open = !is_mouth_open
 			if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
 				var sprites = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
@@ -148,7 +149,8 @@ func _on_typewriter_timer_timeout():
 						active_portrait.texture = sprites["idle"]
 	else:
 		typewriter_timer.stop()
-
+		AudioManager.stop_text_blip()
+		
 		if current_talking_character != "" and NarrativeManager.CHARACTER_SPRITES.has(current_talking_character):
 			var sprites = NarrativeManager.CHARACTER_SPRITES[current_talking_character]
 			if active_portrait != null and sprites["idle"] != null:
@@ -271,9 +273,11 @@ func _format_notebook_line(port_id: String) -> String:
 
 func _on_next_button_pressed():
 	current_page += 1
+	AudioManager.play_ui("page")
 	_update_notebook_content()
 
 
 func _on_prev_button_pressed():
 	current_page -= 1
+	AudioManager.play_ui("page")
 	_update_notebook_content()

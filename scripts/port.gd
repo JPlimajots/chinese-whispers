@@ -49,6 +49,7 @@ func set_led_solid(color_str: String):
 		return
 	led_glow.visible = true
 	led_glow.modulate = active_color
+	AudioManager.play_foley("relay")
 
 
 func set_led_blinking(color_str: String, blink_speed: float):

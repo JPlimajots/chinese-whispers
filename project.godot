@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 ConnectionManager="*uid://csmmejpkph1vv"
 NarrativeManager="*uid://c36yibmy52y44"
 CursorManager="*uid://c0vjf2nil1lfl"
+AudioManager="*uid://0rjsb7g0lxa1"
 
 [display]
 
