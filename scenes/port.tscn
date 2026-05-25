@@ -8,12 +8,12 @@ radius = 8.0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oyquu"]
 blend_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_4bvp8"]
+[sub_resource type="Gradient" id="Gradient_oyquu"]
 interpolation_mode = 1
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_opbk4"]
-gradient = SubResource("Gradient_4bvp8")
+gradient = SubResource("Gradient_oyquu")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)

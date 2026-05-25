@@ -36,8 +36,9 @@ var items_per_spread: int = items_per_side * 2
 func _ready() -> void:
 	caller_balloon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	caller_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	next_button.focus_mode = Control.FOCUS_NONE
+	prev_button.focus_mode = Control.FOCUS_NONE
 	
-	# Se você tiver os nós do receiver, adicione também:
 	receiver_balloon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	receiver_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	caller_balloon.hide()
@@ -57,7 +58,6 @@ func _ready() -> void:
 	prev_button.pressed.connect(_on_prev_button_pressed)
 	
 	_update_notebook_content()
-	display_current_hook(ConnectionManager.current_call_id)
 
 
 func display_current_hook(call_id: String):

@@ -19,6 +19,7 @@ var is_ringing: bool = false
 var was_answered: bool = false
 var lost_calls_count: int = 0
 var max_allowed_lost_calls: int = 3
+var call_resolved: bool = false
 
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
@@ -47,7 +48,10 @@ const DIRECTORY: Dictionary = {
 
 func _ready() -> void:
 	NarrativeManager.reset_call_pool()
-	call_deferred("spawn_next_call")
+
+
+func start_first_call() -> void:
+	spawn_next_call()
 
 
 func _process(delta: float) -> void:
@@ -58,6 +62,9 @@ func _process(delta: float) -> void:
 
 
 func evaluate_new_connection(trigger_port: Area2D) -> void:
+	if call_resolved:
+		return
+	
 	var origin_port = _get_opposite_end(trigger_port)
 	
 	if origin_port == null:
@@ -157,6 +164,8 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	
 	if destination_grid == correct_grid:
 		if last_cable.cable_color == correct_color:
+			if call_resolved: return
+			call_resolved = true
 			is_patience_ticking = false
 			print("\n🟢 CONEXÃO ESTABELECIDA COM SUCESSO!")
 			print("Caminho físico: ", path)
@@ -178,6 +187,8 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	for wrong_id in call_data.get("wrong_targets", {}).keys():
 		var wrong_grid = wrong_id.split("_")[0]
 		if destination_grid == wrong_grid:
+			if call_resolved: return
+			call_resolved = true
 			is_patience_ticking = false
 			var chaos_data = call_data["wrong_targets"][wrong_id]
 			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
@@ -212,6 +223,8 @@ func spawn_next_call():
 		print(">> O expediente acabou! Nenhuma chamada restante na linha.")
 		current_call_id = ""
 		return
+	
+	call_resolved = false
 	
 	var random_call = NarrativeManager.available_calls.pick_random()
 	
@@ -317,6 +330,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _trigger_hangup():
+	if call_resolved:
+		return
+	call_resolved = true
 	is_patience_ticking = false
 	is_ringing = false
 	current_patience = 0

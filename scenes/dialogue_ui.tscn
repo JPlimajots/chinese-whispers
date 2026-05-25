@@ -72,6 +72,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="OpenNotebookUI" type="TextureRect" parent="MainControl" unique_id=177215755]
+visible = false
 layout_mode = 0
 offset_left = 414.00003
 offset_top = 157.00002
@@ -120,9 +121,9 @@ bbcode_enabled = true
 
 [node name="NextButton" type="Button" parent="MainControl/OpenNotebookUI" unique_id=1674188448]
 layout_mode = 0
-offset_left = 182.85995
+offset_left = 181.74405
 offset_top = 144.44107
-offset_right = 190.85995
+offset_right = 189.92307
 offset_bottom = 160.44107
 theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
 theme_override_colors/font_hover_color = Color(0.7019608, 0.14117648, 0.14117648, 1)
