@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://17iieqqxfevt"]
+
+[ext_resource type="Script" uid="uid://dluwsrdlcn14r" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://stt82g5bws3v" path="res://assets/sprites/Chinese Whispers Logo.png" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://ty17jvxj3613" path="res://assets/sprites/Button.png" id="2_wu84c"]
+[ext_resource type="FontFile" uid="uid://bqsnnf8t1t51k" path="res://assets/fonts/PixelOperator-Bold.ttf" id="3_8ln24"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wu84c"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_4bvp8"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ln24"]
+gradient = SubResource("Gradient_4bvp8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="MainMenu" type="Control" unique_id=905885433]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+
+[node name="Logo" type="TextureRect" parent="." unique_id=11124624]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ln24")
+
+[node name="LogoLed1" type="Sprite2D" parent="Logo" unique_id=1220635598]
+material = SubResource("CanvasItemMaterial_wu84c")
+position = Vector2(153, 19)
+scale = Vector2(0.33, 0.33)
+texture = SubResource("GradientTexture2D_8ln24")
+
+[node name="LogoLed2" type="Sprite2D" parent="Logo" unique_id=1204398779]
+material = SubResource("CanvasItemMaterial_wu84c")
+position = Vector2(153, 49)
+scale = Vector2(0.33, 0.33)
+texture = SubResource("GradientTexture2D_8ln24")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2058513794]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = 20.0
+offset_right = 58.5
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer" unique_id=1446322479]
+layout_mode = 2
+texture_normal = ExtResource("2_wu84c")
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayButton" unique_id=360540008]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 28
+text = "PLAY"
+
+[node name="CreditsButton" type="TextureButton" parent="VBoxContainer" unique_id=1134368985]
+layout_mode = 2
+texture_normal = ExtResource("2_wu84c")
+
+[node name="Label" type="Label" parent="VBoxContainer/CreditsButton" unique_id=1886883105]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -14.5
+offset_right = 44.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 26
+text = "CREDITS"
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer" unique_id=687794118]
+layout_mode = 2
+texture_normal = ExtResource("2_wu84c")
+
+[node name="Label" type="Label" parent="VBoxContainer/QuitButton" unique_id=2137687483]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 24
+text = "QUIT"
+
+[node name="LogoTimer" type="Timer" parent="." unique_id=1229314759]
+wait_time = 0.5
+autostart = true
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
