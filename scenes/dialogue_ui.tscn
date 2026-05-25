@@ -2,7 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bgxn548xp3bbt" path="res://scripts/dialogue_ui.gd" id="1_dwk8m"]
 [ext_resource type="Texture2D" uid="uid://bpim5pp5yeal" path="res://assets/sprites/Balão de Fala.png" id="2_6q285"]
+[ext_resource type="Texture2D" uid="uid://6e4asv3t7als" path="res://assets/sprites/Instructions Book.png" id="2_e6usr"]
 [ext_resource type="FontFile" uid="uid://bqsnnf8t1t51k" path="res://assets/fonts/PixelOperator-Bold.ttf" id="3_jx1sv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_imsod"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wlc0t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1ric"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jx1sv"]
 
@@ -19,6 +26,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="OpenNotebookUI" type="TextureRect" parent="MainControl" unique_id=177215755]
+visible = false
+layout_mode = 0
+offset_left = 414.00003
+offset_top = 157.00002
+offset_right = 612.0
+offset_bottom = 336.0
+rotation = 0.17453292
+mouse_filter = 0
+texture = ExtResource("2_e6usr")
+
+[node name="CloseButton" type="Button" parent="MainControl/OpenNotebookUI" unique_id=131675500]
+layout_mode = 0
+offset_left = 163.35909
+offset_top = -6.4652424
+offset_right = 203.35909
+offset_bottom = 33.53476
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
+theme_override_colors/font_hover_color = Color(0.7019608, 0.14117648, 0.14117648, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_imsod")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wlc0t")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_x1ric")
+text = "X"
 
 [node name="CallerBalloon" type="NinePatchRect" parent="MainControl" unique_id=1348209949]
 layout_mode = 0
@@ -41,6 +72,7 @@ offset_right = -4.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 14
 
 [node name="ReceiverBalloon" type="NinePatchRect" parent="MainControl" unique_id=1669179202]
@@ -64,6 +96,7 @@ offset_right = -4.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 14
 
 [node name="CallerPortrait" type="TextureRect" parent="MainControl" unique_id=1893925772]
@@ -72,6 +105,7 @@ offset_left = 390.0
 offset_top = 24.0
 offset_right = 430.0
 offset_bottom = 64.0
+mouse_filter = 2
 
 [node name="ReceiverPortrait" type="TextureRect" parent="MainControl" unique_id=1694653860]
 layout_mode = 0
@@ -79,6 +113,7 @@ offset_left = 390.0
 offset_top = 102.0
 offset_right = 430.0
 offset_bottom = 142.0
+mouse_filter = 2
 
 [node name="CallerNameBox" type="PanelContainer" parent="MainControl" unique_id=810081758]
 layout_mode = 0
@@ -86,6 +121,7 @@ offset_left = 466.0
 offset_top = 17.0
 offset_right = 512.0
 offset_bottom = 57.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_jx1sv")
 
 [node name="Label" type="Label" parent="MainControl/CallerNameBox" unique_id=1935834313]
@@ -101,6 +137,7 @@ offset_left = 465.0
 offset_top = 95.0
 offset_right = 511.0
 offset_bottom = 135.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_e6usr")
 
 [node name="Label" type="Label" parent="MainControl/ReceiverNameBox" unique_id=1859533810]
@@ -114,4 +151,5 @@ text = "Cleber"
 wait_time = 0.05
 autostart = true
 
+[connection signal="pressed" from="MainControl/OpenNotebookUI/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="timeout" from="TypewriterTimer" to="." method="_on_typewriter_timer_timeout"]

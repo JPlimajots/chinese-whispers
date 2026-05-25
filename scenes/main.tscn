@@ -12,6 +12,12 @@
 offsets = PackedFloat32Array(0, 0.30053192, 0.625, 1)
 colors = PackedColorArray(0.93333334, 0.9607843, 1, 1, 1, 1, 1, 1, 1, 0.7607843, 0.52156866, 1, 0.36078432, 0.41960785, 0.56078434, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o6xl0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tipki"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
+
 [node name="Main" type="Node2D" unique_id=874198836]
 script = ExtResource("1_sugp2")
 
@@ -20,6 +26,7 @@ texture_filter = 1
 offset_top = 19.0
 offset_right = 640.0
 offset_bottom = 339.0
+mouse_filter = 2
 texture = ExtResource("2_tefeu")
 stretch_mode = 6
 metadata/_edit_lock_ = true
@@ -129,6 +136,19 @@ cable_color = "green"
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=316457777]
 script = ExtResource("7_o6xl0")
 day_cycle_gradient = SubResource("Gradient_tipki")
+
+[node name="InvisibleNotebookButton" type="Button" parent="." unique_id=541590084]
+offset_left = 446.0
+offset_top = 224.00002
+offset_right = 506.62747
+offset_bottom = 264.1665
+rotation = 0.30019662
+scale = Vector2(1.1461757, 0.75962526)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o6xl0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tipki")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_85g3d")
+
+[connection signal="pressed" from="InvisibleNotebookButton" to="." method="_on_invisible_notebook_button_pressed"]
 
 [editable path="PortA1"]
 [editable path="PortA2"]

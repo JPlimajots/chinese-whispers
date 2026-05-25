@@ -11,6 +11,7 @@ extends CanvasLayer
 @onready var caller_name_box: Control = $MainControl/CallerNameBox
 @onready var receiver_name_label: Label = $MainControl/ReceiverNameBox/Label
 @onready var receiver_name_box: Control = $MainControl/ReceiverNameBox
+@onready var open_notebook_ui: Control = $MainControl/OpenNotebookUI
 
 var current_text: String = ""
 var current_char_index: int = 0
@@ -25,6 +26,12 @@ var is_waiting_for_next_line: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	caller_balloon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	caller_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Se você tiver os nós do receiver, adicione também:
+	receiver_balloon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	receiver_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	caller_balloon.hide()
 	receiver_balloon.hide()
 	caller_portrait.hide()   
@@ -194,3 +201,12 @@ func _on_caller_lost_patience(text: String, character_name: String):
 	receiver_portrait.hide()
 	receiver_name_box.hide()
 	_start_typewriter(text, caller_balloon, caller_label, character_name, caller_portrait)
+
+
+func show_notebook():
+	open_notebook_ui.show()
+	
+
+
+func _on_close_button_pressed() -> void:
+	open_notebook_ui.hide()
