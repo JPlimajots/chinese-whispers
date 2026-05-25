@@ -37,6 +37,7 @@ func _ready() -> void:
 	ConnectionManager.connection_dropped.connect(_on_connection_dropped)
 	ConnectionManager.new_call_started.connect(display_current_hook)
 	ConnectionManager.clear_ui_text.connect(_clear_text)
+	ConnectionManager.caller_lost_patience.connect(_on_caller_lost_patience)
 	
 	display_current_hook(ConnectionManager.current_call_id)
 
@@ -186,3 +187,10 @@ func _input(event: InputEvent) -> void:
 		is_waiting_for_next_line = false
 		current_line_index += 1
 		_type_next_line()
+
+
+func _on_caller_lost_patience(text: String, character_name: String):
+	receiver_balloon.hide()
+	receiver_portrait.hide()
+	receiver_name_box.hide()
+	_start_typewriter(text, caller_balloon, caller_label, character_name, caller_portrait)

@@ -7,9 +7,16 @@ signal new_call_started(call_id: String)
 signal player_confirmed
 signal typing_finished
 signal clear_ui_text
+signal caller_lost_patience(text: String, caller_name: String)
 
 var current_call_id: String = ""
 var is_typing: bool = false
+var max_patience: float = 60.0
+var current_patience: float = 60.0
+var is_patience_ticking: bool = false
+var penalty_time: float = 15.0
+var is_ringing: bool = false
+var was_answered: bool = false
 
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
@@ -39,6 +46,13 @@ const DIRECTORY: Dictionary = {
 func _ready() -> void:
 	NarrativeManager.reset_call_pool()
 	call_deferred("spawn_next_call")
+
+
+func _process(delta: float) -> void:
+	if is_patience_ticking:
+		current_patience -= delta
+		if current_patience <= 0:
+			_trigger_hangup()
 
 
 func evaluate_new_connection(trigger_port: Area2D) -> void:
@@ -141,6 +155,7 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	
 	if destination_grid == correct_grid:
 		if last_cable.cable_color == correct_color:
+			is_patience_ticking = false
 			print("\n🟢 CONEXÃO ESTABELECIDA COM SUCESSO!")
 			print("Caminho físico: ", path)
 			connection_success.emit(caller_name, correct_name)
@@ -161,6 +176,7 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	for wrong_id in call_data.get("wrong_targets", {}).keys():
 		var wrong_grid = wrong_id.split("_")[0]
 		if destination_grid == wrong_grid:
+			is_patience_ticking = false
 			var chaos_data = call_data["wrong_targets"][wrong_id]
 			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
 			print("\n🔴 INSTABILIDADE NA LINHA! INSTALAÇÃO DO CAOS!")
@@ -181,6 +197,11 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			return
 			
 	print("\n⚪ Linha cruzada: O jogador plugou em um lugar irrelevante para essa chamada.")
+	current_patience -= penalty_time
+	if current_patience > 0:
+		print(">> Punição de tempo! Paciência caiu para: ", int(current_patience), "s")
+	else:
+		_trigger_hangup()
 	connection_dropped.emit(caller_name, "Destino não mapeado na narrativa atual")
 	
 
@@ -195,7 +216,6 @@ func spawn_next_call():
 	NarrativeManager.available_calls.erase(random_call)
 	current_call_id = random_call
 	print(">> O telefone toca! Nova chamada recebida: ", current_call_id)
-	#new_call_started.emit(current_call_id)
 	var call_data = NarrativeManager.NARRATIVES[random_call]
 	var caller_id: String = call_data["caller_id"]
 	var caller_color: String = caller_id.split("_")[1]
@@ -203,7 +223,17 @@ func spawn_next_call():
 	
 	if caller_port:
 		caller_port.set_led_blinking(caller_color, 0.1)
-		await  player_confirmed
+		current_patience = max_patience
+		is_patience_ticking = true
+		is_ringing = true
+		was_answered = false
+		while is_ringing and current_patience > 0:
+			await get_tree().process_frame
+		if current_patience <= 0:
+			print("[DEBUG] Corrotina antiga abortada com segurança (Tempo Esgotou).")
+			return
+		was_answered = true
+		is_patience_ticking = false
 		caller_port.set_led_solid(caller_color)
 		await get_tree().create_timer(1.5).timeout
 		
@@ -215,6 +245,8 @@ func spawn_next_call():
 		var correct_id: String = call_data["correct_target"]
 		var correct_color: String = correct_id.split("_")[1]
 		var correct_port = _get_port_by_id(correct_id)
+		is_patience_ticking = true
+		
 		if correct_port:
 			correct_port.set_led_blinking(correct_color, 0.5)
 			
@@ -274,5 +306,39 @@ func _clear_current_call_visuals(call_id: String):
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_confirm"):
-		player_confirmed.emit()
-		print(">> [DEBUG] Tecla ESPAÇO detectada. Sinal player_confirmed disparado!")
+		if is_ringing:
+			is_ringing = false
+			print(">> [DEBUG] Chamada atendida pelo jogador!")
+		else:
+			player_confirmed.emit()
+			print(">> [DEBUG] Tecla ESPAÇO detectada. Sinal player_confirmed disparado!")
+
+
+func _trigger_hangup():
+	is_patience_ticking = false
+	is_ringing = false
+	current_patience = 0
+	
+	var call_data = NarrativeManager.NARRATIVES.get(current_call_id, {})
+	var caller_id = call_data.get("caller_id", "")
+	var caller_name = NarrativeManager.PORT_DIRECTORY.get(caller_id, {}).get("default_character", "")
+	
+	if not was_answered:
+		print("[DEBUG] Chamada perdida antes de atender. Avançando sem pedir confirmação... ")
+		connection_dropped.emit(caller_name, "Desligou por impaciência")
+		_clear_current_call_visuals(current_call_id)
+		ConnectionManager.is_typing = false
+		clear_ui_text.emit()
+		await get_tree().create_timer(5.0).timeout
+		spawn_next_call()
+	else:
+		print(">> [DEBUG] Paciência esgotou durante a ligação. Cliente sendo rude!")
+		var rude_text = call_data.get("timeout_text")
+		caller_lost_patience.emit(rude_text, caller_name)
+		await typing_finished
+		await player_confirmed
+		connection_dropped.emit(caller_name, "Desligou após ofender o operador")
+		_clear_current_call_visuals(current_call_id)
+		clear_ui_text.emit()
+		await get_tree().create_timer(3.0).timeout
+		spawn_next_call()

@@ -121,6 +121,7 @@ const NARRATIVES: Dictionary = {
 He's screaming, knocking over equipment, and nobody can catch him!
 One nurse fainted, another climbed a cabinet!
 Please, connect me before he reaches the maternity ward!",
+		"timeout_text": "Wonderful. By the time someone answers, he'll probably be running the hospital.",
 		# Caminho principal (sucesso)
 		"correct_target": "B1_red",
 		"success_text": "Say no more, Doctor. 
@@ -159,6 +160,7 @@ The enclosure is empty.
 The fence is broken.
 And we've found footprints leading away from the property!
 Connect me to someone immediately!",
+		"timeout_text": "If that animal learns how to use a telephone before I get help, I'm resigning.",
 		# Caminho principal (sucesso)
 		"correct_target": "A3_green",
 		"success_text": "Let me guess.
@@ -196,6 +198,7 @@ They're demanding payment.
 They're carrying documents.
 And they're smiling.
 Nobody smiles that much unless something terrible is happening.",
+		"timeout_text": "Fantastic. The men demanding money are now more responsive than the telephone service.",
 		# Caminho principal (sucesso)
 		"correct_target": "A5_green",
 		"success_text": "Those are auditors.
@@ -232,6 +235,7 @@ My niece is turning twenty-three.",
 A highly respected member of our community has been spotted entering a place he absolutely should not be entering.
 Several witnesses have seen it.
 The rumors are spreading faster than I can stop them.",
+		"timeout_text": "Patience is a virtue. Unfortunately, I've just run out of it.",
 		# Caminho principal (sucesso)
 		"correct_target": "B4_red",
 		"success_text": "Respected member of the community? 
@@ -272,6 +276,7 @@ Throwing objects.
 Making impossible noises.
 And one of them just bit the principal.
 Please connect me to someone.",
+		"timeout_text": "Never mind. The children have apparently become their own government.",
 		# Caminho principal (sucesso)
 		"correct_target": "B3_green",
 		"success_text": "Oh dear.
@@ -309,6 +314,7 @@ It started small this morning.
 Now it's pushing furniture around.
 And it's still growing!
 At this rate, it'll reach the ceiling before noon!",
+		"timeout_text": "If this thing gets any bigger, it'll be paying property taxes.",
 		# Caminho principal (sucesso)
 		"correct_target": "B1_red",
 		"success_text": "Growing, is it?
@@ -345,6 +351,7 @@ Nobody knows who sent it.
 Nobody knows what's inside.
 But whatever it is...
 ...it's definitely breathing.",
+		"timeout_text": "Whatever's in that crate has more manners than this switchboard.",
 		# Caminho principal (sucesso)
 		"correct_target": "A4_red",
 		"success_text": "For the last time...
@@ -382,6 +389,7 @@ The mayor disappeared during a budget meeting.
 Nobody noticed him leave.
 But three different people swear they saw him entering a very suspicious building.
 If his wife finds out before we do, we're finished.",
+		"timeout_text": "Fine. If the mayor's wife finds him first, this becomes someone else's problem.",
 		# Caminho principal (sucesso)
 		"correct_target": "B4_red",
 		"success_text": "Ah.
@@ -422,6 +430,7 @@ He's pointing at the ceiling.
 And he keeps shouting that he's seen an angel.
 The problem is...
 The angel appears to be talking back.",
+		"timeout_text": "The angel is being more helpful than you people.",
 		# Caminho principal (sucesso)
 		"correct_target": "A1_red",
 		"success_text": "Hallucinations.
@@ -463,6 +472,7 @@ My supplier has failed me again.
 I need an ingredient delivered immediately.
 And it must arrive alive.
 The entire menu depends on it.",
+		"timeout_text": "Forget it. At this rate, I'll have to catch the ingredient myself.",
 		# Caminho principal (sucesso)
 		"correct_target": "A3_green",
 		"success_text": "Alive?
@@ -499,6 +509,7 @@ An entire family could be ruined.
 Reputations destroyed.
 Lives changed forever.
 And I simply cannot keep it to myself.",
+		"timeout_text": "Well, if nobody wants to hear it, I'll just tell everybody else.",
 		# Caminho principal (sucesso)
 		"correct_target": "B5_red",
 		"success_text": "Excellent.
@@ -540,6 +551,7 @@ There's something enormous inside my barn.
 It's making terrible noises.
 The walls are shaking.
 And none of my dogs are willing to go near it.",
+		"timeout_text": "Fine. If whatever's in that barn eats me, tell my wife I was right.",
 		# Caminho principal (sucesso)
 		"correct_target": "A4_green",
 		"success_text": "Interesting.
@@ -582,6 +594,7 @@ He claims he knows things about this family.
 Embarrassing things.
 Ridiculous things.
 Some of them may even be true.",
+		"timeout_text": "I've received better service from people trying to blackmail me.",
 		# Caminho principal (sucesso)
 		"correct_target": "A4_red",
 		"success_text": "Demanding money?
@@ -620,6 +633,7 @@ It says everything will explode at noon.
 Nobody knows what it means.
 And unfortunately...
 ...our accounting department believes it.",
+		"timeout_text": "At least the explosion has the decency to arrive on time.",
 		# Caminho principal (sucesso)
 		"correct_target": "A2_red",
 		"success_text": "Oh.

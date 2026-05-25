@@ -15,11 +15,6 @@ colors = PackedColorArray(0.93333334, 0.9607843, 1, 1, 1, 1, 1, 1, 1, 0.7607843,
 [node name="Main" type="Node2D" unique_id=874198836]
 script = ExtResource("1_sugp2")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1083160566]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0, 0, 0, 1)
-
 [node name="Background" type="TextureRect" parent="." unique_id=379146385]
 texture_filter = 1
 offset_top = 19.0
