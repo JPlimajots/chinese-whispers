@@ -8,6 +8,8 @@ const COLOR_GREEN = Color("#33ff33")
 @onready var logo_led_1: Sprite2D = $Logo/LogoLed1
 @onready var logo_led_2: Sprite2D = $Logo/LogoLed2
 @onready var logo_timer: Timer = $LogoTimer
+@onready var tutorial_popup: Panel = $TutorialPopup
+@onready var close_tutorial_button: Button = $TutorialPopup/CloseTutorialButton
 
 var normal_scale := Vector2(1.0, 1.0)
 var hover_scale := Vector2(1.05, 1.05) 
@@ -26,18 +28,21 @@ func _ready() -> void:
 	logo_led_1.modulate = COLOR_RED
 	logo_led_2.modulate = COLOR_GREEN
 	logo_timer.timeout.connect(_on_logo_timer_timeout)
+	tutorial_popup.hide()
+	close_tutorial_button.pressed.connect(_on_close_tutorial_button_pressed)
 
 
 func _on_play_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
-func _on_credits_button_pressed() -> void:
-	pass # Replace with function body.
-
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_close_tutorial_button_pressed() -> void:
+	tutorial_popup.hide()
 
 
 func _animate_scale(button: TextureButton, target_scale: Vector2):
@@ -69,3 +74,7 @@ func _on_logo_timer_timeout() -> void:
 		logo_led_1.modulate = COLOR_RED
 		logo_led_2.modulate = COLOR_IDLE
 	is_state_a = !is_state_a
+
+
+func _on_tutorial_button_pressed() -> void:
+	tutorial_popup.show()
