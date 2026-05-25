@@ -7,7 +7,6 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(">> [MESA] Carregando...")
 	end_game_panel.hide()
 	menu_button.pressed.connect(_on_menu_button_pressed)
 	ConnectionManager.shift_ended.connect(_on_day_completed)
@@ -16,7 +15,6 @@ func _ready() -> void:
 
 
 func _initialize_game() -> void:
-	print(">> [MESA] Grupos de portas criados. Iniciando o ConnectionManager...")
 	ConnectionManager.start_first_call()
 
 
@@ -26,7 +24,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 
 func _on_invisible_notebook_button_pressed() -> void:
-	print(">> [INTERFACE] Botão invisível clicado!")
 	dialogue_ui.show_notebook()
 
 

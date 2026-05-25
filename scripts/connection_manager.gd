@@ -137,7 +137,6 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	var call_data: Dictionary = NarrativeManager.NARRATIVES.get(current_call_id, {})
 	
 	if call_data.is_empty():
-		print("\n⚪ Linha fantasma: Conexão feita, mas não há chamada na linha.")
 		return
 		
 	var origin_grid = origin_port.get_full_id() 
@@ -150,13 +149,11 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 	var caller_name = DIRECTORY.get(caller_id, caller_id)
 	
 	if origin_grid != expected_origin_grid:
-		print("\n⚪ Linha cruzada: A origem plugada (", origin_grid, ") não é quem está chamando (", expected_origin_grid, ").")
 		AudioManager.play_static()
 		connection_dropped.emit(caller_name, "Origem incorreta")
 		return
 		
 	if first_cable.cable_color != expected_origin_color:
-		print("\n📵 LIGAÇÃO CAIU! O cabo [", first_cable.cable_color, "] não serve para a chamada [", expected_origin_color, "].")
 		AudioManager.play_static()
 		connection_dropped.emit(caller_name, "Cabo incompatível na origem")
 		return
@@ -171,8 +168,6 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			if call_resolved: return
 			call_resolved = true
 			is_patience_ticking = false
-			print("\n🟢 CONEXÃO ESTABELECIDA COM SUCESSO!")
-			print("Caminho físico: ", path)
 			connection_success.emit(caller_name, correct_name)
 			var origin_node = _get_port_by_id(caller_id)
 			if origin_node: origin_node.set_led_solid(expected_origin_color)
@@ -184,7 +179,6 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			await get_tree().create_timer(2.0).timeout
 			_advance_narrative(call_data.get("next_trigger_success"))
 		else:
-			print("\n📵 LIGAÇÃO CAIU! Destino certo, mas cor do pino errada no final.")
 			AudioManager.play_static()
 			connection_dropped.emit(caller_name, "Cabo incompatível no destino")
 		return
@@ -197,8 +191,6 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			is_patience_ticking = false
 			var chaos_data = call_data["wrong_targets"][wrong_id]
 			var wrong_name = DIRECTORY.get(wrong_id, wrong_id)
-			print("\n🔴 INSTABILIDADE NA LINHA! INSTALAÇÃO DO CAOS!")
-			print("Caminho físico: ", path)
 			var origin_node = _get_port_by_id(caller_id)
 			if origin_node: origin_node.set_led_solid(expected_origin_color)
 			var dest_node = _get_port_by_id(wrong_id)
@@ -214,11 +206,10 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			_advance_narrative(chaos_data.get("next_trigger"))
 			return
 			
-	print("\n⚪ Linha cruzada: O jogador plugou em um lugar irrelevante para essa chamada.")
 	AudioManager.play_static()
 	current_patience -= penalty_time
 	if current_patience > 0:
-		print(">> Punição de tempo! Paciência caiu para: ", int(current_patience), "s")
+		return
 	else:
 		_trigger_hangup()
 	connection_dropped.emit(caller_name, "Destino não mapeado na narrativa atual")
@@ -226,7 +217,6 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 
 func spawn_next_call():
 	if NarrativeManager.available_calls.is_empty():
-		print(">> O expediente acabou! Nenhuma chamada restante na linha.")
 		current_call_id = ""
 		shift_ended.emit()
 		return
@@ -237,7 +227,6 @@ func spawn_next_call():
 	
 	NarrativeManager.available_calls.erase(random_call)
 	current_call_id = random_call
-	print(">> O telefone toca! Nova chamada recebida: ", current_call_id)
 	var call_data = NarrativeManager.NARRATIVES[random_call]
 	var caller_id: String = call_data["caller_id"]
 	var caller_color: String = caller_id.split("_")[1]
@@ -253,7 +242,6 @@ func spawn_next_call():
 		while is_ringing and current_patience > 0:
 			await get_tree().process_frame
 		if current_patience <= 0:
-			print("[DEBUG] Corrotina antiga abortada com segurança (Tempo Esgotou).")
 			return
 		was_answered = true
 		is_patience_ticking = false
@@ -283,19 +271,14 @@ func spawn_next_call():
 func _advance_narrative(next_id):
 	if next_id != null:
 		current_call_id = next_id
-		print(">> Próxima chamada engatilahda: ", current_call_id)
 		new_call_started.emit(current_call_id)
 	else:
-		print(">> [DEBUG] Fim do atendimento. Aguardando texto terminar de ser digitado!")
 		if is_typing:
 			await typing_finished
-		print(">> [DEBUG] Texto 100% visível na tela! Aguardando o jogador apertar ENTER para proseguir...")
 		await player_confirmed
-		print(">> [DEBUG] Confirmação recebida! Limpando a interface...")
 		clear_ui_text.emit()
 		_clear_current_call_visuals(current_call_id)
 		await get_tree().create_timer(5.0).timeout
-		print(">> [DEBUG] Cooldown de silêncio finalizado. Sorteando o próximo caso...")
 		spawn_next_call()
 
 
@@ -307,8 +290,6 @@ func _get_port_by_id(target_id: String):
 	for port in all_ports:
 		if port.grid_pos == target_grid:
 			return port
-	
-	print("⚠️ AVISO: Porta física não encontrada para o ID -> ", target_id)
 	return null
 
 
@@ -332,12 +313,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_confirm"):
 		if is_ringing:
 			is_ringing = false
-			print(">> [DEBUG] Chamada atendida pelo jogador!")
 			AudioManager.play_foley("pickup")
 			AudioManager.stop_ringing()
 		else:
 			player_confirmed.emit()
-			print(">> [DEBUG] Tecla ESPAÇO detectada. Sinal player_confirmed disparado!")
 
 
 func _trigger_hangup():
@@ -353,10 +332,8 @@ func _trigger_hangup():
 	var caller_name = NarrativeManager.PORT_DIRECTORY.get(caller_id, {}).get("default_character", "")
 	
 	lost_calls_count += 1
-	print(">> [AVISO DO RH] Advertência registrada: ", lost_calls_count, "/", max_allowed_lost_calls)
 	
 	if not was_answered:
-		print("[DEBUG] Chamada perdida antes de atender. Avançando sem pedir confirmação... ")
 		connection_dropped.emit(caller_name, "Desligou por impaciência")
 		_clear_current_call_visuals(current_call_id)
 		ConnectionManager.is_typing = false
@@ -369,7 +346,6 @@ func _trigger_hangup():
 		await get_tree().create_timer(5.0).timeout
 		spawn_next_call()
 	else:
-		print(">> [DEBUG] Paciência esgotou durante a ligação. Cliente sendo rude!")
 		var rude_text = call_data.get("timeout_text")
 		caller_lost_patience.emit(rude_text, caller_name)
 		await typing_finished
@@ -387,5 +363,4 @@ func _trigger_hangup():
 
 
 func _trigger_game_over():
-	print("\n>> [SISTEMA] Disparando sinal de Game Over...")
 	game_over.emit() 

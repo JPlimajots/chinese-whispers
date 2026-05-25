@@ -81,7 +81,6 @@ func _simulate_rope(delta: float):
 		
 		if pos_current[i].y > floor_y:
 			pos_current[i].y = floor_y
-			#pos_current[i].x = pos_old[i].x
 	
 	for _iteration in range(stiffness):
 		for i in range(num_segments - 1):

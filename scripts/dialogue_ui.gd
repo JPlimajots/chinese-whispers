@@ -61,12 +61,9 @@ func _ready() -> void:
 
 
 func display_current_hook(call_id: String):
-	print("--- DEBUG DO REMETENTE (CALLER) ---")
 	var call_data: Dictionary = NarrativeManager.NARRATIVES.get(call_id, {})
-	print("Chaves disponíveis no dicionário da chamada: ", call_data.keys())
 	var caller_port = call_data.get("caller_id", "")
 	var caller_name = NarrativeManager.PORT_DIRECTORY.get(caller_port, {}).get("default_character", "")
-	print("Nome do Remetente extraído: '", caller_name, "'")
 	if not call_data.is_empty():
 		_start_typewriter(call_data["initial_text"], caller_balloon, caller_label, caller_name, caller_portrait)
 	else:
@@ -74,12 +71,9 @@ func display_current_hook(call_id: String):
 
 
 func _on_connection_success(caller_name: String, target_name: String):
-	print("--- DEBUG DO DESTINATÁRIO (RECEIVER) ---")
-	print("O sinal informou que a porta conectada foi: '", target_name, "'")
 	var call_data: Dictionary = NarrativeManager.NARRATIVES.get(ConnectionManager.current_call_id, {})
 	if not call_data.is_empty():
 		var receiver_name = _get_character_by_location(target_name)
-		print("Nome do Destinatário encontrado no PORT_DIRECTORY: '", receiver_name, "'")
 		_start_typewriter(call_data["success_text"], receiver_balloon, receiver_label, receiver_name, receiver_portrait)
 
 
@@ -93,7 +87,7 @@ func _on_connection_chaos(caller_name: String, wrong_target_name: String, origin
 
 
 func _on_connection_dropped(caller_name: String, reason: String):
-	_start_typewriter("LINE_MUTED: " + reason.to_upper(), receiver_balloon, receiver_label, "", receiver_portrait)
+	_clear_text()
 
 
 func _start_typewriter(text_tag: String, target_balloon: Control, target_label: RichTextLabel, character_name: String, target_portrait: TextureRect):
