@@ -69,7 +69,7 @@ const CHARACTER_SPRITES: Dictionary = {
 		"talk": preload("res://assets/sprites/characters/Secretary Donna (open Mouth).png")
 	},
 	"Boss": {
-		"idle": preload("res://assets/sprites/characters/boss.png"),
+		"idle": preload("res://assets/sprites/characters/Boss.png"),
 		"talk": preload("res://assets/sprites/characters/Boss (open mouth).png")
 	},
 	"Chief Caesar": {
@@ -663,9 +663,7 @@ The grandchildren arrive for lunch at twelve.",
 	},
 }
 
-var available_calls: Array[String] = []
+var available_calls: Array = []
 
 func reset_call_pool():
-	available_calls.clear()
-	for call_id in NARRATIVES.keys():
-		available_calls.append(call_id)
+	available_calls = NARRATIVES.keys().duplicate()

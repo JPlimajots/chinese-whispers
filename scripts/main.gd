@@ -15,6 +15,14 @@ func _ready() -> void:
 
 
 func _initialize_game() -> void:
+	NarrativeManager.reset_call_pool()
+	ConnectionManager.lost_calls_count = 0
+	ConnectionManager.current_call_id = ""
+	ConnectionManager.call_resolved = false
+	ConnectionManager.is_typing = false
+	ConnectionManager.is_patience_ticking = false
+	ConnectionManager.is_ringing = false
+	ConnectionManager.current_patience = ConnectionManager.max_patience
 	ConnectionManager.start_first_call()
 
 
