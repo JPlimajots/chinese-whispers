@@ -17,6 +17,8 @@ var is_patience_ticking: bool = false
 var penalty_time: float = 15.0
 var is_ringing: bool = false
 var was_answered: bool = false
+var lost_calls_count: int = 0
+var max_allowed_lost_calls: int = 3
 
 const DIRECTORY: Dictionary = {
 	"A1_red": "Hospital",
@@ -323,12 +325,20 @@ func _trigger_hangup():
 	var caller_id = call_data.get("caller_id", "")
 	var caller_name = NarrativeManager.PORT_DIRECTORY.get(caller_id, {}).get("default_character", "")
 	
+	lost_calls_count += 1
+	print(">> [AVISO DO RH] Advertência registrada: ", lost_calls_count, "/", max_allowed_lost_calls)
+	
 	if not was_answered:
 		print("[DEBUG] Chamada perdida antes de atender. Avançando sem pedir confirmação... ")
 		connection_dropped.emit(caller_name, "Desligou por impaciência")
 		_clear_current_call_visuals(current_call_id)
 		ConnectionManager.is_typing = false
 		clear_ui_text.emit()
+		
+		if lost_calls_count > max_allowed_lost_calls:
+			_trigger_game_over()
+			return
+		
 		await get_tree().create_timer(5.0).timeout
 		spawn_next_call()
 	else:
@@ -340,5 +350,17 @@ func _trigger_hangup():
 		connection_dropped.emit(caller_name, "Desligou após ofender o operador")
 		_clear_current_call_visuals(current_call_id)
 		clear_ui_text.emit()
+		
+		if lost_calls_count > max_allowed_lost_calls:
+			_trigger_game_over()
+			return
+		
 		await get_tree().create_timer(3.0).timeout
 		spawn_next_call()
+
+
+func _trigger_game_over():
+	print("\n=======================================================")
+	print("                   GAME OVER")
+	print(" VOCÊ FOI DEMITIDO POR INCOMPETÊNCIA NO ATENDIMENTO!")
+	print("=======================================================\n")
