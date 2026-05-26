@@ -152,7 +152,7 @@ The fool always comes back when the bread is ready.",
 		}
 	},
 	
-	"02_seed": { #THE MISSING ATTRACTION: Zoo A4_green -> Docks A3_g / Police B1_r / Big Corp A4_r
+	"02_seed": { #THE MISSING ATTRACTION: Zoo A4_green -> Docks A3_g / Police B1_g / Big Corp A2_r
 		"caller_id": "A4_green",
 		"initial_text": "Operator! We have a serious problem!
 One of our biggest attractions vanished during the night!
@@ -172,7 +172,7 @@ He's already eaten two ropes and half a crate of cabbages.",
 		 "next_trigger_success": null,
 		
 		"wrong_targets": {
-			"B1_red": {
+			"B1_green": {
 				"chaos_text": "Broken fence.
 Missing attraction.
 Footprints.
@@ -181,7 +181,7 @@ Nobody leaves footprints unless they WANT us to find them.
 This goes deeper than you think.",
 				"next_trigger": null
 			},
-			"A4_red": {
+			"A2_red": {
 				"chaos_text": "Your biggest attraction disappeared?
 Have you checked accounting?
 That's where our valuable assets usually vanish.",
@@ -230,7 +230,7 @@ My niece is turning twenty-three.",
 	},
 	
 	"04_seed": { #THE HOLY SCANDAL: Church B2_G -> Brothel B4_R / News B5_R / Mayor Office A5_R
-		"caller_id": "A1_green",
+		"caller_id": "B2_green",
 		"initial_text": "Operator, I require assistance.
 A highly respected member of our community has been spotted entering a place he absolutely should not be entering.
 Several witnesses have seen it.
