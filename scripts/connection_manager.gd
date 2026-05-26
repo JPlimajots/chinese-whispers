@@ -208,12 +208,9 @@ func _validate_connection(origin_port: Area2D, destination_port: Area2D, path: A
 			
 	AudioManager.play_static()
 	current_patience -= penalty_time
-	if current_patience > 0:
-		return
-	else:
+	if current_patience <= 0:
 		_trigger_hangup()
-	connection_dropped.emit(caller_name, "Destino não mapeado na narrativa atual")
-	
+
 
 func spawn_next_call():
 	if NarrativeManager.available_calls.is_empty():
