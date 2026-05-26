@@ -11,38 +11,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1ric"]
 
-[sub_resource type="FontFile" id="FontFile_e6usr"]
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
-[sub_resource type="FontFile" id="FontFile_imsod"]
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ecd83"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rn5aw"]
@@ -103,8 +71,8 @@ offset_right = 91.87942
 offset_bottom = 148.84682
 rotation = 0.008726646
 theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
-theme_override_fonts/normal_font = SubResource("FontFile_e6usr")
-theme_override_font_sizes/normal_font_size = 9
+theme_override_fonts/normal_font = ExtResource("3_jx1sv")
+theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 
 [node name="RightLabel" type="RichTextLabel" parent="MainControl/OpenNotebookUI" unique_id=1767640530]
@@ -115,8 +83,8 @@ offset_right = 181.84183
 offset_bottom = 152.27715
 rotation = -0.008726646
 theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.13725491, 1)
-theme_override_fonts/normal_font = SubResource("FontFile_imsod")
-theme_override_font_sizes/normal_font_size = 9
+theme_override_fonts/normal_font = ExtResource("3_jx1sv")
+theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 
 [node name="NextButton" type="Button" parent="MainControl/OpenNotebookUI" unique_id=1674188448]
